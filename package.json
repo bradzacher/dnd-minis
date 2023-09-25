@@ -1,0 +1,60 @@
+{
+  "name": "dnd-minis",
+  "packageManager": "yarn@3.6.3",
+  "private": true,
+  "scripts": {
+    "dev": "yarn run relay && prisma generate && next dev",
+    "build": "yarn run relay && prisma generate && prisma db push && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier --write . && prisma format",
+    "relay": "tsx ./scripts/generate-schema.ts && relay-compiler",
+    "typecheck": "tsc --noEmit"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@mui/material": "^5.14.10",
+    "@stylexjs/stylex": "beta",
+    "next": "^13.4.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-relay": "^15.0.0",
+    "relay-runtime": "^15.0.0"
+  },
+  "devDependencies": {
+    "@pothos/core": "^3.37.0",
+    "@pothos/plugin-prisma": "^3.60.0",
+    "@pothos/plugin-prisma-utils": "^0.11.0",
+    "@pothos/plugin-relay": "^3.44.0",
+    "@prisma/client": "5.3.1",
+    "@stylexjs/dev-runtime": "beta",
+    "@stylexjs/eslint-plugin": "beta",
+    "@stylexjs/nextjs-plugin": "beta",
+    "@types/bcrypt": "^5.0.0",
+    "@types/node": "^18.11.9",
+    "@types/react": "^18.0.25",
+    "@types/react-relay": "^14.1.5",
+    "@typescript-eslint/eslint-plugin": "^6.7.2",
+    "@typescript-eslint/parser": "^6.7.2",
+    "eslint": "^8.50.0",
+    "eslint-config-next": "^13.0.5",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-relay": "^1.8.3",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-unicorn": "^48.0.1",
+    "graphql": "^16.8.1",
+    "graphql-yoga": "^4.0.4",
+    "prettier": "^3.0.3",
+    "prisma": "^5.3.1",
+    "relay-compiler": "^15.0.0",
+    "tsx": "^3.12.10",
+    "typescript": "^5.2.2"
+  }
+}

@@ -1,0 +1,68 @@
+type Image implements Node {
+  id: ID!
+  url: String!
+}
+
+type Mini implements Node {
+  id: ID!
+  monsters: [Monster!]!
+  name: String!
+  size: String!
+  subType: String!
+  type: String!
+}
+
+type Monster implements Node {
+  id: ID!
+  image: Image!
+  minis: [Mini!]!
+  name: String!
+  sheet: Sheet!
+  size: String!
+  subType: String!
+  type: String!
+}
+
+interface Node {
+  id: ID!
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
+type Query {
+  minis(after: String, before: String, first: Int, last: Int): QueryMinisConnection!
+  monsters(after: String, before: String, first: Int, last: Int): QueryMonstersConnection!
+  node(id: ID!): Node
+  nodes(ids: [ID!]!): [Node]!
+}
+
+type QueryMinisConnection {
+  edges: [QueryMinisConnectionEdge!]!
+  pageInfo: PageInfo!
+}
+
+type QueryMinisConnectionEdge {
+  cursor: String!
+  node: Mini!
+}
+
+type QueryMonstersConnection {
+  edges: [QueryMonstersConnectionEdge!]!
+  pageInfo: PageInfo!
+}
+
+type QueryMonstersConnectionEdge {
+  cursor: String!
+  node: Mini!
+}
+
+type Sheet implements Node {
+  id: ID!
+  sheetType: String!
+  url: String!
+}

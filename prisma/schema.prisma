@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/lib/prisma/__generated__/client"
+}
+
+generator pothos {
+  provider     = "prisma-pothos-types"
+  clientOutput = "@/lib/prisma/__generated__/client"
+  output       = "../src/lib/pothos/__generated__/pothos.ts"
+  prismaUtils  = true
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./minis.db"
+}
+
+model Mini {
+  id        Int             @id @default(autoincrement())
+  name      String
+  size      MonsterSize     @relation(fields: [sizeId], references: [id])
+  sizeId    Int
+  type      MonsterType     @relation(fields: [typeId], references: [id])
+  typeId    Int
+  subType   MonsterSubType? @relation(fields: [subTypeId], references: [id])
+  subTypeId Int?
+
+  monsters Monster[]
+}
+
+model Monster {
+  id        Int             @id @default(autoincrement())
+  name      String
+  size      MonsterSize     @relation(fields: [sizeId], references: [id])
+  sizeId    Int
+  type      MonsterType     @relation(fields: [typeId], references: [id])
+  typeId    Int
+  subType   MonsterSubType? @relation(fields: [subTypeId], references: [id])
+  subTypeId Int?
+  sheet     Sheet           @relation(fields: [sheetId], references: [id])
+  sheetId   Int
+  image     Image?          @relation(fields: [imageId], references: [id])
+  imageId   Int?
+
+  minis Mini[]
+}
+
+model MonsterSize {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  minis    Mini[]
+  monsters Monster[]
+}
+
+model MonsterType {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  minis    Mini[]
+  monsters Monster[]
+}
+
+model MonsterSubType {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  minis    Mini[]
+  monsters Monster[]
+}
+
+model Image {
+  id  Int    @id @default(autoincrement())
+  url String
+
+  monsters Monster[]
+}
+
+model Sheet {
+  id     Int       @id @default(autoincrement())
+  url    String
+  type   SheetType @relation(fields: [typeId], references: [id])
+  typeId Int
+
+  monsters Monster[]
+}
+
+model SheetType {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  Sheet Sheet[]
+}
