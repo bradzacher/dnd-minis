@@ -12,15 +12,15 @@ async function getCurrentData() {
 
   return {
     monsterSizes: Object.fromEntries(
-      rawMonsterSizes.map((entry) => [entry.name, entry.id]),
+      rawMonsterSizes.map(entry => [entry.name, entry.id]),
     ),
     monsterTypes: Object.fromEntries(
-      rawMonsterTypes.map((entry) => [entry.name, entry.id]),
+      rawMonsterTypes.map(entry => [entry.name, entry.id]),
     ),
     monsterSubTypes: Object.fromEntries(
-      rawMonsterSubTypes.map((entry) => [entry.name, entry.id]),
+      rawMonsterSubTypes.map(entry => [entry.name, entry.id]),
     ),
-    minis: Object.fromEntries(rawMinis.map((entry) => [entry.name, entry.id])),
+    minis: Object.fromEntries(rawMinis.map(entry => [entry.name, entry.id])),
   };
 }
 
@@ -930,6 +930,13 @@ const SEED_DATA = [
   },
 ];
 
+function assertExists<T>(arg: T | null | undefined): T {
+  if (arg == null) {
+    throw new Error('unexpected nullish');
+  }
+  return arg;
+}
+
 async function main() {
   const { monsterSizes, monsterTypes, monsterSubTypes, minis } =
     await getCurrentData();
@@ -937,9 +944,12 @@ async function main() {
   for (const row of SEED_DATA) {
     const data: Prisma.MiniUncheckedCreateInput = {
       name: row.name,
-      sizeId: monsterSizes[row.size],
-      typeId: monsterTypes[row.type],
-      subTypeId: row.subtype ? monsterSubTypes[row.subtype] : null,
+      sizeId: assertExists(monsterSizes[row.size]),
+      typeId: assertExists(monsterTypes[row.type]),
+      subTypeId: row.subtype
+        ? assertExists(monsterSubTypes[row.subtype])
+        : null,
+      quantity: row.quantity,
     };
     await prisma.mini.upsert({
       where: { id: minis[row.name] ?? -1 },
@@ -954,7 +964,7 @@ main()
     await prisma.$disconnect();
   })
   // eslint-disable-next-line unicorn/prefer-top-level-await -- tsx compiles to CJS which doesn't support TLA
-  .catch(async (error) => {
+  .catch(async error => {
     console.error(error);
     await prisma.$disconnect();
     // eslint-disable-next-line unicorn/no-process-exit

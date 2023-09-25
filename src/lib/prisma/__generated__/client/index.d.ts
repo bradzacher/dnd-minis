@@ -44,11 +44,6 @@ export type MonsterSubType = $Result.DefaultSelection<Prisma.$MonsterSubTypePayl
  */
 export type Image = $Result.DefaultSelection<Prisma.$ImagePayload>
 /**
- * Model Sheet
- * 
- */
-export type Sheet = $Result.DefaultSelection<Prisma.$SheetPayload>
-/**
  * Model SheetType
  * 
  */
@@ -235,16 +230,6 @@ export class PrismaClient<
     * ```
     */
   get image(): Prisma.ImageDelegate<ExtArgs>;
-
-  /**
-   * `prisma.sheet`: Exposes CRUD operations for the **Sheet** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Sheets
-    * const sheets = await prisma.sheet.findMany()
-    * ```
-    */
-  get sheet(): Prisma.SheetDelegate<ExtArgs>;
 
   /**
    * `prisma.sheetType`: Exposes CRUD operations for the **SheetType** model.
@@ -731,7 +716,6 @@ export namespace Prisma {
     MonsterType: 'MonsterType',
     MonsterSubType: 'MonsterSubType',
     Image: 'Image',
-    Sheet: 'Sheet',
     SheetType: 'SheetType'
   };
 
@@ -749,7 +733,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'mini' | 'monster' | 'monsterSize' | 'monsterType' | 'monsterSubType' | 'image' | 'sheet' | 'sheetType'
+      modelProps: 'mini' | 'monster' | 'monsterSize' | 'monsterType' | 'monsterSubType' | 'image' | 'sheetType'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -1122,68 +1106,6 @@ export namespace Prisma {
           count: {
             args: Prisma.ImageCountArgs<ExtArgs>,
             result: $Utils.Optional<ImageCountAggregateOutputType> | number
-          }
-        }
-      }
-      Sheet: {
-        payload: Prisma.$SheetPayload<ExtArgs>
-        fields: Prisma.SheetFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.SheetFindUniqueArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$SheetPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.SheetFindUniqueOrThrowArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$SheetPayload>
-          }
-          findFirst: {
-            args: Prisma.SheetFindFirstArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$SheetPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.SheetFindFirstOrThrowArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$SheetPayload>
-          }
-          findMany: {
-            args: Prisma.SheetFindManyArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$SheetPayload>[]
-          }
-          create: {
-            args: Prisma.SheetCreateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$SheetPayload>
-          }
-          delete: {
-            args: Prisma.SheetDeleteArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$SheetPayload>
-          }
-          update: {
-            args: Prisma.SheetUpdateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$SheetPayload>
-          }
-          deleteMany: {
-            args: Prisma.SheetDeleteManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
-          }
-          updateMany: {
-            args: Prisma.SheetUpdateManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
-          }
-          upsert: {
-            args: Prisma.SheetUpsertArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$SheetPayload>
-          }
-          aggregate: {
-            args: Prisma.SheetAggregateArgs<ExtArgs>,
-            result: $Utils.Optional<AggregateSheet>
-          }
-          groupBy: {
-            args: Prisma.SheetGroupByArgs<ExtArgs>,
-            result: $Utils.Optional<SheetGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.SheetCountArgs<ExtArgs>,
-            result: $Utils.Optional<SheetCountAggregateOutputType> | number
           }
         }
       }
@@ -1632,49 +1554,15 @@ export namespace Prisma {
 
 
   /**
-   * Count Type SheetCountOutputType
-   */
-
-  export type SheetCountOutputType = {
-    monsters: number
-  }
-
-  export type SheetCountOutputTypeSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    monsters?: boolean | SheetCountOutputTypeCountMonstersArgs
-  }
-
-  // Custom InputTypes
-
-  /**
-   * SheetCountOutputType without action
-   */
-  export type SheetCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the SheetCountOutputType
-     */
-    select?: SheetCountOutputTypeSelect<ExtArgs> | null
-  }
-
-
-  /**
-   * SheetCountOutputType without action
-   */
-  export type SheetCountOutputTypeCountMonstersArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    where?: MonsterWhereInput
-  }
-
-
-
-  /**
    * Count Type SheetTypeCountOutputType
    */
 
   export type SheetTypeCountOutputType = {
-    Sheet: number
+    Monster: number
   }
 
   export type SheetTypeCountOutputTypeSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    Sheet?: boolean | SheetTypeCountOutputTypeCountSheetArgs
+    Monster?: boolean | SheetTypeCountOutputTypeCountMonsterArgs
   }
 
   // Custom InputTypes
@@ -1693,8 +1581,8 @@ export namespace Prisma {
   /**
    * SheetTypeCountOutputType without action
    */
-  export type SheetTypeCountOutputTypeCountSheetArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    where?: SheetWhereInput
+  export type SheetTypeCountOutputTypeCountMonsterArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+    where?: MonsterWhereInput
   }
 
 
@@ -1720,6 +1608,7 @@ export namespace Prisma {
     sizeId: number | null
     typeId: number | null
     subTypeId: number | null
+    quantity: number | null
   }
 
   export type MiniSumAggregateOutputType = {
@@ -1727,6 +1616,7 @@ export namespace Prisma {
     sizeId: number | null
     typeId: number | null
     subTypeId: number | null
+    quantity: number | null
   }
 
   export type MiniMinAggregateOutputType = {
@@ -1735,6 +1625,7 @@ export namespace Prisma {
     sizeId: number | null
     typeId: number | null
     subTypeId: number | null
+    quantity: number | null
   }
 
   export type MiniMaxAggregateOutputType = {
@@ -1743,6 +1634,7 @@ export namespace Prisma {
     sizeId: number | null
     typeId: number | null
     subTypeId: number | null
+    quantity: number | null
   }
 
   export type MiniCountAggregateOutputType = {
@@ -1751,6 +1643,7 @@ export namespace Prisma {
     sizeId: number
     typeId: number
     subTypeId: number
+    quantity: number
     _all: number
   }
 
@@ -1760,6 +1653,7 @@ export namespace Prisma {
     sizeId?: true
     typeId?: true
     subTypeId?: true
+    quantity?: true
   }
 
   export type MiniSumAggregateInputType = {
@@ -1767,6 +1661,7 @@ export namespace Prisma {
     sizeId?: true
     typeId?: true
     subTypeId?: true
+    quantity?: true
   }
 
   export type MiniMinAggregateInputType = {
@@ -1775,6 +1670,7 @@ export namespace Prisma {
     sizeId?: true
     typeId?: true
     subTypeId?: true
+    quantity?: true
   }
 
   export type MiniMaxAggregateInputType = {
@@ -1783,6 +1679,7 @@ export namespace Prisma {
     sizeId?: true
     typeId?: true
     subTypeId?: true
+    quantity?: true
   }
 
   export type MiniCountAggregateInputType = {
@@ -1791,6 +1688,7 @@ export namespace Prisma {
     sizeId?: true
     typeId?: true
     subTypeId?: true
+    quantity?: true
     _all?: true
   }
 
@@ -1886,6 +1784,7 @@ export namespace Prisma {
     sizeId: number
     typeId: number
     subTypeId: number | null
+    quantity: number
     _count: MiniCountAggregateOutputType | null
     _avg: MiniAvgAggregateOutputType | null
     _sum: MiniSumAggregateOutputType | null
@@ -1913,6 +1812,7 @@ export namespace Prisma {
     sizeId?: boolean
     typeId?: boolean
     subTypeId?: boolean
+    quantity?: boolean
     size?: boolean | MonsterSizeDefaultArgs<ExtArgs>
     type?: boolean | MonsterTypeDefaultArgs<ExtArgs>
     subType?: boolean | Mini$subTypeArgs<ExtArgs>
@@ -1926,6 +1826,7 @@ export namespace Prisma {
     sizeId?: boolean
     typeId?: boolean
     subTypeId?: boolean
+    quantity?: boolean
   }
 
   export type MiniInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
@@ -1951,6 +1852,7 @@ export namespace Prisma {
       sizeId: number
       typeId: number
       subTypeId: number | null
+      quantity: number
     }, ExtArgs["result"]["mini"]>
     composites: {}
   }
@@ -2341,6 +2243,7 @@ export namespace Prisma {
     readonly sizeId: FieldRef<"Mini", 'Int'>
     readonly typeId: FieldRef<"Mini", 'Int'>
     readonly subTypeId: FieldRef<"Mini", 'Int'>
+    readonly quantity: FieldRef<"Mini", 'Int'>
   }
     
 
@@ -2710,8 +2613,8 @@ export namespace Prisma {
     sizeId: number | null
     typeId: number | null
     subTypeId: number | null
-    sheetId: number | null
     imageId: number | null
+    sheetTypeId: number | null
   }
 
   export type MonsterSumAggregateOutputType = {
@@ -2719,8 +2622,8 @@ export namespace Prisma {
     sizeId: number | null
     typeId: number | null
     subTypeId: number | null
-    sheetId: number | null
     imageId: number | null
+    sheetTypeId: number | null
   }
 
   export type MonsterMinAggregateOutputType = {
@@ -2729,8 +2632,9 @@ export namespace Prisma {
     sizeId: number | null
     typeId: number | null
     subTypeId: number | null
-    sheetId: number | null
     imageId: number | null
+    sheetUrl: string | null
+    sheetTypeId: number | null
   }
 
   export type MonsterMaxAggregateOutputType = {
@@ -2739,8 +2643,9 @@ export namespace Prisma {
     sizeId: number | null
     typeId: number | null
     subTypeId: number | null
-    sheetId: number | null
     imageId: number | null
+    sheetUrl: string | null
+    sheetTypeId: number | null
   }
 
   export type MonsterCountAggregateOutputType = {
@@ -2749,8 +2654,9 @@ export namespace Prisma {
     sizeId: number
     typeId: number
     subTypeId: number
-    sheetId: number
     imageId: number
+    sheetUrl: number
+    sheetTypeId: number
     _all: number
   }
 
@@ -2760,8 +2666,8 @@ export namespace Prisma {
     sizeId?: true
     typeId?: true
     subTypeId?: true
-    sheetId?: true
     imageId?: true
+    sheetTypeId?: true
   }
 
   export type MonsterSumAggregateInputType = {
@@ -2769,8 +2675,8 @@ export namespace Prisma {
     sizeId?: true
     typeId?: true
     subTypeId?: true
-    sheetId?: true
     imageId?: true
+    sheetTypeId?: true
   }
 
   export type MonsterMinAggregateInputType = {
@@ -2779,8 +2685,9 @@ export namespace Prisma {
     sizeId?: true
     typeId?: true
     subTypeId?: true
-    sheetId?: true
     imageId?: true
+    sheetUrl?: true
+    sheetTypeId?: true
   }
 
   export type MonsterMaxAggregateInputType = {
@@ -2789,8 +2696,9 @@ export namespace Prisma {
     sizeId?: true
     typeId?: true
     subTypeId?: true
-    sheetId?: true
     imageId?: true
+    sheetUrl?: true
+    sheetTypeId?: true
   }
 
   export type MonsterCountAggregateInputType = {
@@ -2799,8 +2707,9 @@ export namespace Prisma {
     sizeId?: true
     typeId?: true
     subTypeId?: true
-    sheetId?: true
     imageId?: true
+    sheetUrl?: true
+    sheetTypeId?: true
     _all?: true
   }
 
@@ -2896,8 +2805,9 @@ export namespace Prisma {
     sizeId: number
     typeId: number
     subTypeId: number | null
-    sheetId: number
     imageId: number | null
+    sheetUrl: string
+    sheetTypeId: number
     _count: MonsterCountAggregateOutputType | null
     _avg: MonsterAvgAggregateOutputType | null
     _sum: MonsterSumAggregateOutputType | null
@@ -2925,13 +2835,14 @@ export namespace Prisma {
     sizeId?: boolean
     typeId?: boolean
     subTypeId?: boolean
-    sheetId?: boolean
     imageId?: boolean
+    sheetUrl?: boolean
+    sheetTypeId?: boolean
     size?: boolean | MonsterSizeDefaultArgs<ExtArgs>
     type?: boolean | MonsterTypeDefaultArgs<ExtArgs>
     subType?: boolean | Monster$subTypeArgs<ExtArgs>
-    sheet?: boolean | SheetDefaultArgs<ExtArgs>
     image?: boolean | Monster$imageArgs<ExtArgs>
+    sheetType?: boolean | SheetTypeDefaultArgs<ExtArgs>
     minis?: boolean | Monster$minisArgs<ExtArgs>
     _count?: boolean | MonsterCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["monster"]>
@@ -2942,16 +2853,17 @@ export namespace Prisma {
     sizeId?: boolean
     typeId?: boolean
     subTypeId?: boolean
-    sheetId?: boolean
     imageId?: boolean
+    sheetUrl?: boolean
+    sheetTypeId?: boolean
   }
 
   export type MonsterInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     size?: boolean | MonsterSizeDefaultArgs<ExtArgs>
     type?: boolean | MonsterTypeDefaultArgs<ExtArgs>
     subType?: boolean | Monster$subTypeArgs<ExtArgs>
-    sheet?: boolean | SheetDefaultArgs<ExtArgs>
     image?: boolean | Monster$imageArgs<ExtArgs>
+    sheetType?: boolean | SheetTypeDefaultArgs<ExtArgs>
     minis?: boolean | Monster$minisArgs<ExtArgs>
     _count?: boolean | MonsterCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -2963,8 +2875,8 @@ export namespace Prisma {
       size: Prisma.$MonsterSizePayload<ExtArgs>
       type: Prisma.$MonsterTypePayload<ExtArgs>
       subType: Prisma.$MonsterSubTypePayload<ExtArgs> | null
-      sheet: Prisma.$SheetPayload<ExtArgs>
       image: Prisma.$ImagePayload<ExtArgs> | null
+      sheetType: Prisma.$SheetTypePayload<ExtArgs>
       minis: Prisma.$MiniPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetResult<{
@@ -2973,8 +2885,9 @@ export namespace Prisma {
       sizeId: number
       typeId: number
       subTypeId: number | null
-      sheetId: number
       imageId: number | null
+      sheetUrl: string
+      sheetTypeId: number
     }, ExtArgs["result"]["monster"]>
     composites: {}
   }
@@ -3330,9 +3243,9 @@ export namespace Prisma {
 
     subType<T extends Monster$subTypeArgs<ExtArgs> = {}>(args?: Subset<T, Monster$subTypeArgs<ExtArgs>>): Prisma__MonsterSubTypeClient<$Result.GetResult<Prisma.$MonsterSubTypePayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
-    sheet<T extends SheetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SheetDefaultArgs<ExtArgs>>): Prisma__SheetClient<$Result.GetResult<Prisma.$SheetPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
-
     image<T extends Monster$imageArgs<ExtArgs> = {}>(args?: Subset<T, Monster$imageArgs<ExtArgs>>): Prisma__ImageClient<$Result.GetResult<Prisma.$ImagePayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
+
+    sheetType<T extends SheetTypeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SheetTypeDefaultArgs<ExtArgs>>): Prisma__SheetTypeClient<$Result.GetResult<Prisma.$SheetTypePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
     minis<T extends Monster$minisArgs<ExtArgs> = {}>(args?: Subset<T, Monster$minisArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MiniPayload<ExtArgs>, T, 'findMany'> | Null>;
 
@@ -3369,8 +3282,9 @@ export namespace Prisma {
     readonly sizeId: FieldRef<"Monster", 'Int'>
     readonly typeId: FieldRef<"Monster", 'Int'>
     readonly subTypeId: FieldRef<"Monster", 'Int'>
-    readonly sheetId: FieldRef<"Monster", 'Int'>
     readonly imageId: FieldRef<"Monster", 'Int'>
+    readonly sheetUrl: FieldRef<"Monster", 'String'>
+    readonly sheetTypeId: FieldRef<"Monster", 'Int'>
   }
     
 
@@ -7474,940 +7388,6 @@ export namespace Prisma {
 
 
   /**
-   * Model Sheet
-   */
-
-  export type AggregateSheet = {
-    _count: SheetCountAggregateOutputType | null
-    _avg: SheetAvgAggregateOutputType | null
-    _sum: SheetSumAggregateOutputType | null
-    _min: SheetMinAggregateOutputType | null
-    _max: SheetMaxAggregateOutputType | null
-  }
-
-  export type SheetAvgAggregateOutputType = {
-    id: number | null
-    typeId: number | null
-  }
-
-  export type SheetSumAggregateOutputType = {
-    id: number | null
-    typeId: number | null
-  }
-
-  export type SheetMinAggregateOutputType = {
-    id: number | null
-    url: string | null
-    typeId: number | null
-  }
-
-  export type SheetMaxAggregateOutputType = {
-    id: number | null
-    url: string | null
-    typeId: number | null
-  }
-
-  export type SheetCountAggregateOutputType = {
-    id: number
-    url: number
-    typeId: number
-    _all: number
-  }
-
-
-  export type SheetAvgAggregateInputType = {
-    id?: true
-    typeId?: true
-  }
-
-  export type SheetSumAggregateInputType = {
-    id?: true
-    typeId?: true
-  }
-
-  export type SheetMinAggregateInputType = {
-    id?: true
-    url?: true
-    typeId?: true
-  }
-
-  export type SheetMaxAggregateInputType = {
-    id?: true
-    url?: true
-    typeId?: true
-  }
-
-  export type SheetCountAggregateInputType = {
-    id?: true
-    url?: true
-    typeId?: true
-    _all?: true
-  }
-
-  export type SheetAggregateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Sheet to aggregate.
-     */
-    where?: SheetWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Sheets to fetch.
-     */
-    orderBy?: SheetOrderByWithRelationInput | SheetOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: SheetWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Sheets from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Sheets.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Sheets
-    **/
-    _count?: true | SheetCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: SheetAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: SheetSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: SheetMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: SheetMaxAggregateInputType
-  }
-
-  export type GetSheetAggregateType<T extends SheetAggregateArgs> = {
-        [P in keyof T & keyof AggregateSheet]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateSheet[P]>
-      : GetScalarType<T[P], AggregateSheet[P]>
-  }
-
-
-
-
-  export type SheetGroupByArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    where?: SheetWhereInput
-    orderBy?: SheetOrderByWithAggregationInput | SheetOrderByWithAggregationInput[]
-    by: SheetScalarFieldEnum[] | SheetScalarFieldEnum
-    having?: SheetScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: SheetCountAggregateInputType | true
-    _avg?: SheetAvgAggregateInputType
-    _sum?: SheetSumAggregateInputType
-    _min?: SheetMinAggregateInputType
-    _max?: SheetMaxAggregateInputType
-  }
-
-  export type SheetGroupByOutputType = {
-    id: number
-    url: string
-    typeId: number
-    _count: SheetCountAggregateOutputType | null
-    _avg: SheetAvgAggregateOutputType | null
-    _sum: SheetSumAggregateOutputType | null
-    _min: SheetMinAggregateOutputType | null
-    _max: SheetMaxAggregateOutputType | null
-  }
-
-  type GetSheetGroupByPayload<T extends SheetGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<SheetGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof SheetGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], SheetGroupByOutputType[P]>
-            : GetScalarType<T[P], SheetGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type SheetSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    url?: boolean
-    typeId?: boolean
-    type?: boolean | SheetTypeDefaultArgs<ExtArgs>
-    monsters?: boolean | Sheet$monstersArgs<ExtArgs>
-    _count?: boolean | SheetCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["sheet"]>
-
-  export type SheetSelectScalar = {
-    id?: boolean
-    url?: boolean
-    typeId?: boolean
-  }
-
-  export type SheetInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    type?: boolean | SheetTypeDefaultArgs<ExtArgs>
-    monsters?: boolean | Sheet$monstersArgs<ExtArgs>
-    _count?: boolean | SheetCountOutputTypeDefaultArgs<ExtArgs>
-  }
-
-
-  export type $SheetPayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    name: "Sheet"
-    objects: {
-      type: Prisma.$SheetTypePayload<ExtArgs>
-      monsters: Prisma.$MonsterPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetResult<{
-      id: number
-      url: string
-      typeId: number
-    }, ExtArgs["result"]["sheet"]>
-    composites: {}
-  }
-
-
-  type SheetGetPayload<S extends boolean | null | undefined | SheetDefaultArgs> = $Result.GetResult<Prisma.$SheetPayload, S>
-
-  type SheetCountArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = 
-    Omit<SheetFindManyArgs, 'select' | 'include'> & {
-      select?: SheetCountAggregateInputType | true
-    }
-
-  export interface SheetDelegate<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Sheet'], meta: { name: 'Sheet' } }
-    /**
-     * Find zero or one Sheet that matches the filter.
-     * @param {SheetFindUniqueArgs} args - Arguments to find a Sheet
-     * @example
-     * // Get one Sheet
-     * const sheet = await prisma.sheet.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUnique<T extends SheetFindUniqueArgs<ExtArgs>>(
-      args: SelectSubset<T, SheetFindUniqueArgs<ExtArgs>>
-    ): Prisma__SheetClient<$Result.GetResult<Prisma.$SheetPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
-
-    /**
-     * Find one Sheet that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
-     * @param {SheetFindUniqueOrThrowArgs} args - Arguments to find a Sheet
-     * @example
-     * // Get one Sheet
-     * const sheet = await prisma.sheet.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUniqueOrThrow<T extends SheetFindUniqueOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, SheetFindUniqueOrThrowArgs<ExtArgs>>
-    ): Prisma__SheetClient<$Result.GetResult<Prisma.$SheetPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
-
-    /**
-     * Find the first Sheet that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SheetFindFirstArgs} args - Arguments to find a Sheet
-     * @example
-     * // Get one Sheet
-     * const sheet = await prisma.sheet.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirst<T extends SheetFindFirstArgs<ExtArgs>>(
-      args?: SelectSubset<T, SheetFindFirstArgs<ExtArgs>>
-    ): Prisma__SheetClient<$Result.GetResult<Prisma.$SheetPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
-
-    /**
-     * Find the first Sheet that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SheetFindFirstOrThrowArgs} args - Arguments to find a Sheet
-     * @example
-     * // Get one Sheet
-     * const sheet = await prisma.sheet.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirstOrThrow<T extends SheetFindFirstOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, SheetFindFirstOrThrowArgs<ExtArgs>>
-    ): Prisma__SheetClient<$Result.GetResult<Prisma.$SheetPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
-
-    /**
-     * Find zero or more Sheets that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SheetFindManyArgs=} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Sheets
-     * const sheets = await prisma.sheet.findMany()
-     * 
-     * // Get first 10 Sheets
-     * const sheets = await prisma.sheet.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const sheetWithIdOnly = await prisma.sheet.findMany({ select: { id: true } })
-     * 
-    **/
-    findMany<T extends SheetFindManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, SheetFindManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SheetPayload<ExtArgs>, T, 'findMany'>>
-
-    /**
-     * Create a Sheet.
-     * @param {SheetCreateArgs} args - Arguments to create a Sheet.
-     * @example
-     * // Create one Sheet
-     * const Sheet = await prisma.sheet.create({
-     *   data: {
-     *     // ... data to create a Sheet
-     *   }
-     * })
-     * 
-    **/
-    create<T extends SheetCreateArgs<ExtArgs>>(
-      args: SelectSubset<T, SheetCreateArgs<ExtArgs>>
-    ): Prisma__SheetClient<$Result.GetResult<Prisma.$SheetPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
-
-    /**
-     * Delete a Sheet.
-     * @param {SheetDeleteArgs} args - Arguments to delete one Sheet.
-     * @example
-     * // Delete one Sheet
-     * const Sheet = await prisma.sheet.delete({
-     *   where: {
-     *     // ... filter to delete one Sheet
-     *   }
-     * })
-     * 
-    **/
-    delete<T extends SheetDeleteArgs<ExtArgs>>(
-      args: SelectSubset<T, SheetDeleteArgs<ExtArgs>>
-    ): Prisma__SheetClient<$Result.GetResult<Prisma.$SheetPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
-
-    /**
-     * Update one Sheet.
-     * @param {SheetUpdateArgs} args - Arguments to update one Sheet.
-     * @example
-     * // Update one Sheet
-     * const sheet = await prisma.sheet.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    update<T extends SheetUpdateArgs<ExtArgs>>(
-      args: SelectSubset<T, SheetUpdateArgs<ExtArgs>>
-    ): Prisma__SheetClient<$Result.GetResult<Prisma.$SheetPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
-
-    /**
-     * Delete zero or more Sheets.
-     * @param {SheetDeleteManyArgs} args - Arguments to filter Sheets to delete.
-     * @example
-     * // Delete a few Sheets
-     * const { count } = await prisma.sheet.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-    **/
-    deleteMany<T extends SheetDeleteManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, SheetDeleteManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Sheets.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SheetUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Sheets
-     * const sheet = await prisma.sheet.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    updateMany<T extends SheetUpdateManyArgs<ExtArgs>>(
-      args: SelectSubset<T, SheetUpdateManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one Sheet.
-     * @param {SheetUpsertArgs} args - Arguments to update or create a Sheet.
-     * @example
-     * // Update or create a Sheet
-     * const sheet = await prisma.sheet.upsert({
-     *   create: {
-     *     // ... data to create a Sheet
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Sheet we want to update
-     *   }
-     * })
-    **/
-    upsert<T extends SheetUpsertArgs<ExtArgs>>(
-      args: SelectSubset<T, SheetUpsertArgs<ExtArgs>>
-    ): Prisma__SheetClient<$Result.GetResult<Prisma.$SheetPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
-
-    /**
-     * Count the number of Sheets.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SheetCountArgs} args - Arguments to filter Sheets to count.
-     * @example
-     * // Count the number of Sheets
-     * const count = await prisma.sheet.count({
-     *   where: {
-     *     // ... the filter for the Sheets we want to count
-     *   }
-     * })
-    **/
-    count<T extends SheetCountArgs>(
-      args?: Subset<T, SheetCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], SheetCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Sheet.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SheetAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends SheetAggregateArgs>(args: Subset<T, SheetAggregateArgs>): Prisma.PrismaPromise<GetSheetAggregateType<T>>
-
-    /**
-     * Group by Sheet.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SheetGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends SheetGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: SheetGroupByArgs['orderBy'] }
-        : { orderBy?: SheetGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, SheetGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSheetGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Sheet model
-   */
-  readonly fields: SheetFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Sheet.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__SheetClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: 'PrismaPromise';
-
-    type<T extends SheetTypeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SheetTypeDefaultArgs<ExtArgs>>): Prisma__SheetTypeClient<$Result.GetResult<Prisma.$SheetTypePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
-
-    monsters<T extends Sheet$monstersArgs<ExtArgs> = {}>(args?: Subset<T, Sheet$monstersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MonsterPayload<ExtArgs>, T, 'findMany'> | Null>;
-
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
-  }
-
-
-
-  /**
-   * Fields of the Sheet model
-   */ 
-  interface SheetFieldRefs {
-    readonly id: FieldRef<"Sheet", 'Int'>
-    readonly url: FieldRef<"Sheet", 'String'>
-    readonly typeId: FieldRef<"Sheet", 'Int'>
-  }
-    
-
-  // Custom InputTypes
-
-  /**
-   * Sheet findUnique
-   */
-  export type SheetFindUniqueArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Sheet
-     */
-    select?: SheetSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: SheetInclude<ExtArgs> | null
-    /**
-     * Filter, which Sheet to fetch.
-     */
-    where: SheetWhereUniqueInput
-  }
-
-
-  /**
-   * Sheet findUniqueOrThrow
-   */
-  export type SheetFindUniqueOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Sheet
-     */
-    select?: SheetSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: SheetInclude<ExtArgs> | null
-    /**
-     * Filter, which Sheet to fetch.
-     */
-    where: SheetWhereUniqueInput
-  }
-
-
-  /**
-   * Sheet findFirst
-   */
-  export type SheetFindFirstArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Sheet
-     */
-    select?: SheetSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: SheetInclude<ExtArgs> | null
-    /**
-     * Filter, which Sheet to fetch.
-     */
-    where?: SheetWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Sheets to fetch.
-     */
-    orderBy?: SheetOrderByWithRelationInput | SheetOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Sheets.
-     */
-    cursor?: SheetWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Sheets from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Sheets.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Sheets.
-     */
-    distinct?: SheetScalarFieldEnum | SheetScalarFieldEnum[]
-  }
-
-
-  /**
-   * Sheet findFirstOrThrow
-   */
-  export type SheetFindFirstOrThrowArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Sheet
-     */
-    select?: SheetSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: SheetInclude<ExtArgs> | null
-    /**
-     * Filter, which Sheet to fetch.
-     */
-    where?: SheetWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Sheets to fetch.
-     */
-    orderBy?: SheetOrderByWithRelationInput | SheetOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Sheets.
-     */
-    cursor?: SheetWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Sheets from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Sheets.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Sheets.
-     */
-    distinct?: SheetScalarFieldEnum | SheetScalarFieldEnum[]
-  }
-
-
-  /**
-   * Sheet findMany
-   */
-  export type SheetFindManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Sheet
-     */
-    select?: SheetSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: SheetInclude<ExtArgs> | null
-    /**
-     * Filter, which Sheets to fetch.
-     */
-    where?: SheetWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Sheets to fetch.
-     */
-    orderBy?: SheetOrderByWithRelationInput | SheetOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Sheets.
-     */
-    cursor?: SheetWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Sheets from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Sheets.
-     */
-    skip?: number
-    distinct?: SheetScalarFieldEnum | SheetScalarFieldEnum[]
-  }
-
-
-  /**
-   * Sheet create
-   */
-  export type SheetCreateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Sheet
-     */
-    select?: SheetSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: SheetInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Sheet.
-     */
-    data: XOR<SheetCreateInput, SheetUncheckedCreateInput>
-  }
-
-
-  /**
-   * Sheet update
-   */
-  export type SheetUpdateArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Sheet
-     */
-    select?: SheetSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: SheetInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Sheet.
-     */
-    data: XOR<SheetUpdateInput, SheetUncheckedUpdateInput>
-    /**
-     * Choose, which Sheet to update.
-     */
-    where: SheetWhereUniqueInput
-  }
-
-
-  /**
-   * Sheet updateMany
-   */
-  export type SheetUpdateManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Sheets.
-     */
-    data: XOR<SheetUpdateManyMutationInput, SheetUncheckedUpdateManyInput>
-    /**
-     * Filter which Sheets to update
-     */
-    where?: SheetWhereInput
-  }
-
-
-  /**
-   * Sheet upsert
-   */
-  export type SheetUpsertArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Sheet
-     */
-    select?: SheetSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: SheetInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Sheet to update in case it exists.
-     */
-    where: SheetWhereUniqueInput
-    /**
-     * In case the Sheet found by the `where` argument doesn't exist, create a new Sheet with this data.
-     */
-    create: XOR<SheetCreateInput, SheetUncheckedCreateInput>
-    /**
-     * In case the Sheet was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<SheetUpdateInput, SheetUncheckedUpdateInput>
-  }
-
-
-  /**
-   * Sheet delete
-   */
-  export type SheetDeleteArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Sheet
-     */
-    select?: SheetSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: SheetInclude<ExtArgs> | null
-    /**
-     * Filter which Sheet to delete.
-     */
-    where: SheetWhereUniqueInput
-  }
-
-
-  /**
-   * Sheet deleteMany
-   */
-  export type SheetDeleteManyArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Sheets to delete
-     */
-    where?: SheetWhereInput
-  }
-
-
-  /**
-   * Sheet.monsters
-   */
-  export type Sheet$monstersArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Monster
-     */
-    select?: MonsterSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: MonsterInclude<ExtArgs> | null
-    where?: MonsterWhereInput
-    orderBy?: MonsterOrderByWithRelationInput | MonsterOrderByWithRelationInput[]
-    cursor?: MonsterWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: MonsterScalarFieldEnum | MonsterScalarFieldEnum[]
-  }
-
-
-  /**
-   * Sheet without action
-   */
-  export type SheetDefaultArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Sheet
-     */
-    select?: SheetSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: SheetInclude<ExtArgs> | null
-  }
-
-
-
-  /**
    * Model SheetType
    */
 
@@ -8581,7 +7561,7 @@ export namespace Prisma {
   export type SheetTypeSelect<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    Sheet?: boolean | SheetType$SheetArgs<ExtArgs>
+    Monster?: boolean | SheetType$MonsterArgs<ExtArgs>
     _count?: boolean | SheetTypeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sheetType"]>
 
@@ -8591,7 +7571,7 @@ export namespace Prisma {
   }
 
   export type SheetTypeInclude<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
-    Sheet?: boolean | SheetType$SheetArgs<ExtArgs>
+    Monster?: boolean | SheetType$MonsterArgs<ExtArgs>
     _count?: boolean | SheetTypeCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -8599,7 +7579,7 @@ export namespace Prisma {
   export type $SheetTypePayload<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     name: "SheetType"
     objects: {
-      Sheet: Prisma.$SheetPayload<ExtArgs>[]
+      Monster: Prisma.$MonsterPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetResult<{
       id: number
@@ -8953,7 +7933,7 @@ export namespace Prisma {
   export interface Prisma__SheetTypeClient<T, Null = never, ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
-    Sheet<T extends SheetType$SheetArgs<ExtArgs> = {}>(args?: Subset<T, SheetType$SheetArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SheetPayload<ExtArgs>, T, 'findMany'> | Null>;
+    Monster<T extends SheetType$MonsterArgs<ExtArgs> = {}>(args?: Subset<T, SheetType$MonsterArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MonsterPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -9285,23 +8265,23 @@ export namespace Prisma {
 
 
   /**
-   * SheetType.Sheet
+   * SheetType.Monster
    */
-  export type SheetType$SheetArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+  export type SheetType$MonsterArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Sheet
+     * Select specific fields to fetch from the Monster
      */
-    select?: SheetSelect<ExtArgs> | null
+    select?: MonsterSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well.
      */
-    include?: SheetInclude<ExtArgs> | null
-    where?: SheetWhereInput
-    orderBy?: SheetOrderByWithRelationInput | SheetOrderByWithRelationInput[]
-    cursor?: SheetWhereUniqueInput
+    include?: MonsterInclude<ExtArgs> | null
+    where?: MonsterWhereInput
+    orderBy?: MonsterOrderByWithRelationInput | MonsterOrderByWithRelationInput[]
+    cursor?: MonsterWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: SheetScalarFieldEnum | SheetScalarFieldEnum[]
+    distinct?: MonsterScalarFieldEnum | MonsterScalarFieldEnum[]
   }
 
 
@@ -9337,7 +8317,8 @@ export namespace Prisma {
     name: 'name',
     sizeId: 'sizeId',
     typeId: 'typeId',
-    subTypeId: 'subTypeId'
+    subTypeId: 'subTypeId',
+    quantity: 'quantity'
   };
 
   export type MiniScalarFieldEnum = (typeof MiniScalarFieldEnum)[keyof typeof MiniScalarFieldEnum]
@@ -9349,8 +8330,9 @@ export namespace Prisma {
     sizeId: 'sizeId',
     typeId: 'typeId',
     subTypeId: 'subTypeId',
-    sheetId: 'sheetId',
-    imageId: 'imageId'
+    imageId: 'imageId',
+    sheetUrl: 'sheetUrl',
+    sheetTypeId: 'sheetTypeId'
   };
 
   export type MonsterScalarFieldEnum = (typeof MonsterScalarFieldEnum)[keyof typeof MonsterScalarFieldEnum]
@@ -9386,15 +8368,6 @@ export namespace Prisma {
   };
 
   export type ImageScalarFieldEnum = (typeof ImageScalarFieldEnum)[keyof typeof ImageScalarFieldEnum]
-
-
-  export const SheetScalarFieldEnum: {
-    id: 'id',
-    url: 'url',
-    typeId: 'typeId'
-  };
-
-  export type SheetScalarFieldEnum = (typeof SheetScalarFieldEnum)[keyof typeof SheetScalarFieldEnum]
 
 
   export const SheetTypeScalarFieldEnum: {
@@ -9459,6 +8432,7 @@ export namespace Prisma {
     sizeId?: IntFilter<"Mini"> | number
     typeId?: IntFilter<"Mini"> | number
     subTypeId?: IntNullableFilter<"Mini"> | number | null
+    quantity?: IntFilter<"Mini"> | number
     size?: XOR<MonsterSizeRelationFilter, MonsterSizeWhereInput>
     type?: XOR<MonsterTypeRelationFilter, MonsterTypeWhereInput>
     subType?: XOR<MonsterSubTypeNullableRelationFilter, MonsterSubTypeWhereInput> | null
@@ -9471,6 +8445,7 @@ export namespace Prisma {
     sizeId?: SortOrder
     typeId?: SortOrder
     subTypeId?: SortOrderInput | SortOrder
+    quantity?: SortOrder
     size?: MonsterSizeOrderByWithRelationInput
     type?: MonsterTypeOrderByWithRelationInput
     subType?: MonsterSubTypeOrderByWithRelationInput
@@ -9486,6 +8461,7 @@ export namespace Prisma {
     sizeId?: IntFilter<"Mini"> | number
     typeId?: IntFilter<"Mini"> | number
     subTypeId?: IntNullableFilter<"Mini"> | number | null
+    quantity?: IntFilter<"Mini"> | number
     size?: XOR<MonsterSizeRelationFilter, MonsterSizeWhereInput>
     type?: XOR<MonsterTypeRelationFilter, MonsterTypeWhereInput>
     subType?: XOR<MonsterSubTypeNullableRelationFilter, MonsterSubTypeWhereInput> | null
@@ -9498,6 +8474,7 @@ export namespace Prisma {
     sizeId?: SortOrder
     typeId?: SortOrder
     subTypeId?: SortOrderInput | SortOrder
+    quantity?: SortOrder
     _count?: MiniCountOrderByAggregateInput
     _avg?: MiniAvgOrderByAggregateInput
     _max?: MiniMaxOrderByAggregateInput
@@ -9514,6 +8491,7 @@ export namespace Prisma {
     sizeId?: IntWithAggregatesFilter<"Mini"> | number
     typeId?: IntWithAggregatesFilter<"Mini"> | number
     subTypeId?: IntNullableWithAggregatesFilter<"Mini"> | number | null
+    quantity?: IntWithAggregatesFilter<"Mini"> | number
   }
 
   export type MonsterWhereInput = {
@@ -9525,13 +8503,14 @@ export namespace Prisma {
     sizeId?: IntFilter<"Monster"> | number
     typeId?: IntFilter<"Monster"> | number
     subTypeId?: IntNullableFilter<"Monster"> | number | null
-    sheetId?: IntFilter<"Monster"> | number
     imageId?: IntNullableFilter<"Monster"> | number | null
+    sheetUrl?: StringFilter<"Monster"> | string
+    sheetTypeId?: IntFilter<"Monster"> | number
     size?: XOR<MonsterSizeRelationFilter, MonsterSizeWhereInput>
     type?: XOR<MonsterTypeRelationFilter, MonsterTypeWhereInput>
     subType?: XOR<MonsterSubTypeNullableRelationFilter, MonsterSubTypeWhereInput> | null
-    sheet?: XOR<SheetRelationFilter, SheetWhereInput>
     image?: XOR<ImageNullableRelationFilter, ImageWhereInput> | null
+    sheetType?: XOR<SheetTypeRelationFilter, SheetTypeWhereInput>
     minis?: MiniListRelationFilter
   }
 
@@ -9541,13 +8520,14 @@ export namespace Prisma {
     sizeId?: SortOrder
     typeId?: SortOrder
     subTypeId?: SortOrderInput | SortOrder
-    sheetId?: SortOrder
     imageId?: SortOrderInput | SortOrder
+    sheetUrl?: SortOrder
+    sheetTypeId?: SortOrder
     size?: MonsterSizeOrderByWithRelationInput
     type?: MonsterTypeOrderByWithRelationInput
     subType?: MonsterSubTypeOrderByWithRelationInput
-    sheet?: SheetOrderByWithRelationInput
     image?: ImageOrderByWithRelationInput
+    sheetType?: SheetTypeOrderByWithRelationInput
     minis?: MiniOrderByRelationAggregateInput
   }
 
@@ -9560,13 +8540,14 @@ export namespace Prisma {
     sizeId?: IntFilter<"Monster"> | number
     typeId?: IntFilter<"Monster"> | number
     subTypeId?: IntNullableFilter<"Monster"> | number | null
-    sheetId?: IntFilter<"Monster"> | number
     imageId?: IntNullableFilter<"Monster"> | number | null
+    sheetUrl?: StringFilter<"Monster"> | string
+    sheetTypeId?: IntFilter<"Monster"> | number
     size?: XOR<MonsterSizeRelationFilter, MonsterSizeWhereInput>
     type?: XOR<MonsterTypeRelationFilter, MonsterTypeWhereInput>
     subType?: XOR<MonsterSubTypeNullableRelationFilter, MonsterSubTypeWhereInput> | null
-    sheet?: XOR<SheetRelationFilter, SheetWhereInput>
     image?: XOR<ImageNullableRelationFilter, ImageWhereInput> | null
+    sheetType?: XOR<SheetTypeRelationFilter, SheetTypeWhereInput>
     minis?: MiniListRelationFilter
   }, "id">
 
@@ -9576,8 +8557,9 @@ export namespace Prisma {
     sizeId?: SortOrder
     typeId?: SortOrder
     subTypeId?: SortOrderInput | SortOrder
-    sheetId?: SortOrder
     imageId?: SortOrderInput | SortOrder
+    sheetUrl?: SortOrder
+    sheetTypeId?: SortOrder
     _count?: MonsterCountOrderByAggregateInput
     _avg?: MonsterAvgOrderByAggregateInput
     _max?: MonsterMaxOrderByAggregateInput
@@ -9594,8 +8576,9 @@ export namespace Prisma {
     sizeId?: IntWithAggregatesFilter<"Monster"> | number
     typeId?: IntWithAggregatesFilter<"Monster"> | number
     subTypeId?: IntNullableWithAggregatesFilter<"Monster"> | number | null
-    sheetId?: IntWithAggregatesFilter<"Monster"> | number
     imageId?: IntNullableWithAggregatesFilter<"Monster"> | number | null
+    sheetUrl?: StringWithAggregatesFilter<"Monster"> | string
+    sheetTypeId?: IntWithAggregatesFilter<"Monster"> | number
   }
 
   export type MonsterSizeWhereInput = {
@@ -9775,69 +8758,19 @@ export namespace Prisma {
     url?: StringWithAggregatesFilter<"Image"> | string
   }
 
-  export type SheetWhereInput = {
-    AND?: SheetWhereInput | SheetWhereInput[]
-    OR?: SheetWhereInput[]
-    NOT?: SheetWhereInput | SheetWhereInput[]
-    id?: IntFilter<"Sheet"> | number
-    url?: StringFilter<"Sheet"> | string
-    typeId?: IntFilter<"Sheet"> | number
-    type?: XOR<SheetTypeRelationFilter, SheetTypeWhereInput>
-    monsters?: MonsterListRelationFilter
-  }
-
-  export type SheetOrderByWithRelationInput = {
-    id?: SortOrder
-    url?: SortOrder
-    typeId?: SortOrder
-    type?: SheetTypeOrderByWithRelationInput
-    monsters?: MonsterOrderByRelationAggregateInput
-  }
-
-  export type SheetWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    AND?: SheetWhereInput | SheetWhereInput[]
-    OR?: SheetWhereInput[]
-    NOT?: SheetWhereInput | SheetWhereInput[]
-    url?: StringFilter<"Sheet"> | string
-    typeId?: IntFilter<"Sheet"> | number
-    type?: XOR<SheetTypeRelationFilter, SheetTypeWhereInput>
-    monsters?: MonsterListRelationFilter
-  }, "id">
-
-  export type SheetOrderByWithAggregationInput = {
-    id?: SortOrder
-    url?: SortOrder
-    typeId?: SortOrder
-    _count?: SheetCountOrderByAggregateInput
-    _avg?: SheetAvgOrderByAggregateInput
-    _max?: SheetMaxOrderByAggregateInput
-    _min?: SheetMinOrderByAggregateInput
-    _sum?: SheetSumOrderByAggregateInput
-  }
-
-  export type SheetScalarWhereWithAggregatesInput = {
-    AND?: SheetScalarWhereWithAggregatesInput | SheetScalarWhereWithAggregatesInput[]
-    OR?: SheetScalarWhereWithAggregatesInput[]
-    NOT?: SheetScalarWhereWithAggregatesInput | SheetScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Sheet"> | number
-    url?: StringWithAggregatesFilter<"Sheet"> | string
-    typeId?: IntWithAggregatesFilter<"Sheet"> | number
-  }
-
   export type SheetTypeWhereInput = {
     AND?: SheetTypeWhereInput | SheetTypeWhereInput[]
     OR?: SheetTypeWhereInput[]
     NOT?: SheetTypeWhereInput | SheetTypeWhereInput[]
     id?: IntFilter<"SheetType"> | number
     name?: StringFilter<"SheetType"> | string
-    Sheet?: SheetListRelationFilter
+    Monster?: MonsterListRelationFilter
   }
 
   export type SheetTypeOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    Sheet?: SheetOrderByRelationAggregateInput
+    Monster?: MonsterOrderByRelationAggregateInput
   }
 
   export type SheetTypeWhereUniqueInput = Prisma.AtLeast<{
@@ -9846,7 +8779,7 @@ export namespace Prisma {
     OR?: SheetTypeWhereInput[]
     NOT?: SheetTypeWhereInput | SheetTypeWhereInput[]
     name?: StringFilter<"SheetType"> | string
-    Sheet?: SheetListRelationFilter
+    Monster?: MonsterListRelationFilter
   }, "id">
 
   export type SheetTypeOrderByWithAggregationInput = {
@@ -9869,6 +8802,7 @@ export namespace Prisma {
 
   export type MiniCreateInput = {
     name: string
+    quantity: number
     size: MonsterSizeCreateNestedOneWithoutMinisInput
     type: MonsterTypeCreateNestedOneWithoutMinisInput
     subType?: MonsterSubTypeCreateNestedOneWithoutMinisInput
@@ -9881,11 +8815,13 @@ export namespace Prisma {
     sizeId: number
     typeId: number
     subTypeId?: number | null
+    quantity: number
     monsters?: MonsterUncheckedCreateNestedManyWithoutMinisInput
   }
 
   export type MiniUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
     size?: MonsterSizeUpdateOneRequiredWithoutMinisNestedInput
     type?: MonsterTypeUpdateOneRequiredWithoutMinisNestedInput
     subType?: MonsterSubTypeUpdateOneWithoutMinisNestedInput
@@ -9898,11 +8834,13 @@ export namespace Prisma {
     sizeId?: IntFieldUpdateOperationsInput | number
     typeId?: IntFieldUpdateOperationsInput | number
     subTypeId?: NullableIntFieldUpdateOperationsInput | number | null
+    quantity?: IntFieldUpdateOperationsInput | number
     monsters?: MonsterUncheckedUpdateManyWithoutMinisNestedInput
   }
 
   export type MiniUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
   }
 
   export type MiniUncheckedUpdateManyInput = {
@@ -9911,15 +8849,17 @@ export namespace Prisma {
     sizeId?: IntFieldUpdateOperationsInput | number
     typeId?: IntFieldUpdateOperationsInput | number
     subTypeId?: NullableIntFieldUpdateOperationsInput | number | null
+    quantity?: IntFieldUpdateOperationsInput | number
   }
 
   export type MonsterCreateInput = {
     name: string
+    sheetUrl: string
     size: MonsterSizeCreateNestedOneWithoutMonstersInput
     type: MonsterTypeCreateNestedOneWithoutMonstersInput
     subType?: MonsterSubTypeCreateNestedOneWithoutMonstersInput
-    sheet: SheetCreateNestedOneWithoutMonstersInput
     image?: ImageCreateNestedOneWithoutMonstersInput
+    sheetType: SheetTypeCreateNestedOneWithoutMonsterInput
     minis?: MiniCreateNestedManyWithoutMonstersInput
   }
 
@@ -9929,18 +8869,20 @@ export namespace Prisma {
     sizeId: number
     typeId: number
     subTypeId?: number | null
-    sheetId: number
     imageId?: number | null
+    sheetUrl: string
+    sheetTypeId: number
     minis?: MiniUncheckedCreateNestedManyWithoutMonstersInput
   }
 
   export type MonsterUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
+    sheetUrl?: StringFieldUpdateOperationsInput | string
     size?: MonsterSizeUpdateOneRequiredWithoutMonstersNestedInput
     type?: MonsterTypeUpdateOneRequiredWithoutMonstersNestedInput
     subType?: MonsterSubTypeUpdateOneWithoutMonstersNestedInput
-    sheet?: SheetUpdateOneRequiredWithoutMonstersNestedInput
     image?: ImageUpdateOneWithoutMonstersNestedInput
+    sheetType?: SheetTypeUpdateOneRequiredWithoutMonsterNestedInput
     minis?: MiniUpdateManyWithoutMonstersNestedInput
   }
 
@@ -9950,13 +8892,15 @@ export namespace Prisma {
     sizeId?: IntFieldUpdateOperationsInput | number
     typeId?: IntFieldUpdateOperationsInput | number
     subTypeId?: NullableIntFieldUpdateOperationsInput | number | null
-    sheetId?: IntFieldUpdateOperationsInput | number
     imageId?: NullableIntFieldUpdateOperationsInput | number | null
+    sheetUrl?: StringFieldUpdateOperationsInput | string
+    sheetTypeId?: IntFieldUpdateOperationsInput | number
     minis?: MiniUncheckedUpdateManyWithoutMonstersNestedInput
   }
 
   export type MonsterUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
+    sheetUrl?: StringFieldUpdateOperationsInput | string
   }
 
   export type MonsterUncheckedUpdateManyInput = {
@@ -9965,8 +8909,9 @@ export namespace Prisma {
     sizeId?: IntFieldUpdateOperationsInput | number
     typeId?: IntFieldUpdateOperationsInput | number
     subTypeId?: NullableIntFieldUpdateOperationsInput | number | null
-    sheetId?: IntFieldUpdateOperationsInput | number
     imageId?: NullableIntFieldUpdateOperationsInput | number | null
+    sheetUrl?: StringFieldUpdateOperationsInput | string
+    sheetTypeId?: IntFieldUpdateOperationsInput | number
   }
 
   export type MonsterSizeCreateInput = {
@@ -10105,62 +9050,26 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
   }
 
-  export type SheetCreateInput = {
-    url: string
-    type: SheetTypeCreateNestedOneWithoutSheetInput
-    monsters?: MonsterCreateNestedManyWithoutSheetInput
-  }
-
-  export type SheetUncheckedCreateInput = {
-    id?: number
-    url: string
-    typeId: number
-    monsters?: MonsterUncheckedCreateNestedManyWithoutSheetInput
-  }
-
-  export type SheetUpdateInput = {
-    url?: StringFieldUpdateOperationsInput | string
-    type?: SheetTypeUpdateOneRequiredWithoutSheetNestedInput
-    monsters?: MonsterUpdateManyWithoutSheetNestedInput
-  }
-
-  export type SheetUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    url?: StringFieldUpdateOperationsInput | string
-    typeId?: IntFieldUpdateOperationsInput | number
-    monsters?: MonsterUncheckedUpdateManyWithoutSheetNestedInput
-  }
-
-  export type SheetUpdateManyMutationInput = {
-    url?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type SheetUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    url?: StringFieldUpdateOperationsInput | string
-    typeId?: IntFieldUpdateOperationsInput | number
-  }
-
   export type SheetTypeCreateInput = {
     name: string
-    Sheet?: SheetCreateNestedManyWithoutTypeInput
+    Monster?: MonsterCreateNestedManyWithoutSheetTypeInput
   }
 
   export type SheetTypeUncheckedCreateInput = {
     id?: number
     name: string
-    Sheet?: SheetUncheckedCreateNestedManyWithoutTypeInput
+    Monster?: MonsterUncheckedCreateNestedManyWithoutSheetTypeInput
   }
 
   export type SheetTypeUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
-    Sheet?: SheetUpdateManyWithoutTypeNestedInput
+    Monster?: MonsterUpdateManyWithoutSheetTypeNestedInput
   }
 
   export type SheetTypeUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
-    Sheet?: SheetUncheckedUpdateManyWithoutTypeNestedInput
+    Monster?: MonsterUncheckedUpdateManyWithoutSheetTypeNestedInput
   }
 
   export type SheetTypeUpdateManyMutationInput = {
@@ -10244,6 +9153,7 @@ export namespace Prisma {
     sizeId?: SortOrder
     typeId?: SortOrder
     subTypeId?: SortOrder
+    quantity?: SortOrder
   }
 
   export type MiniAvgOrderByAggregateInput = {
@@ -10251,6 +9161,7 @@ export namespace Prisma {
     sizeId?: SortOrder
     typeId?: SortOrder
     subTypeId?: SortOrder
+    quantity?: SortOrder
   }
 
   export type MiniMaxOrderByAggregateInput = {
@@ -10259,6 +9170,7 @@ export namespace Prisma {
     sizeId?: SortOrder
     typeId?: SortOrder
     subTypeId?: SortOrder
+    quantity?: SortOrder
   }
 
   export type MiniMinOrderByAggregateInput = {
@@ -10267,6 +9179,7 @@ export namespace Prisma {
     sizeId?: SortOrder
     typeId?: SortOrder
     subTypeId?: SortOrder
+    quantity?: SortOrder
   }
 
   export type MiniSumOrderByAggregateInput = {
@@ -10274,6 +9187,7 @@ export namespace Prisma {
     sizeId?: SortOrder
     typeId?: SortOrder
     subTypeId?: SortOrder
+    quantity?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -10325,14 +9239,14 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type SheetRelationFilter = {
-    is?: SheetWhereInput
-    isNot?: SheetWhereInput
-  }
-
   export type ImageNullableRelationFilter = {
     is?: ImageWhereInput | null
     isNot?: ImageWhereInput | null
+  }
+
+  export type SheetTypeRelationFilter = {
+    is?: SheetTypeWhereInput
+    isNot?: SheetTypeWhereInput
   }
 
   export type MiniListRelationFilter = {
@@ -10351,8 +9265,9 @@ export namespace Prisma {
     sizeId?: SortOrder
     typeId?: SortOrder
     subTypeId?: SortOrder
-    sheetId?: SortOrder
     imageId?: SortOrder
+    sheetUrl?: SortOrder
+    sheetTypeId?: SortOrder
   }
 
   export type MonsterAvgOrderByAggregateInput = {
@@ -10360,8 +9275,8 @@ export namespace Prisma {
     sizeId?: SortOrder
     typeId?: SortOrder
     subTypeId?: SortOrder
-    sheetId?: SortOrder
     imageId?: SortOrder
+    sheetTypeId?: SortOrder
   }
 
   export type MonsterMaxOrderByAggregateInput = {
@@ -10370,8 +9285,9 @@ export namespace Prisma {
     sizeId?: SortOrder
     typeId?: SortOrder
     subTypeId?: SortOrder
-    sheetId?: SortOrder
     imageId?: SortOrder
+    sheetUrl?: SortOrder
+    sheetTypeId?: SortOrder
   }
 
   export type MonsterMinOrderByAggregateInput = {
@@ -10380,8 +9296,9 @@ export namespace Prisma {
     sizeId?: SortOrder
     typeId?: SortOrder
     subTypeId?: SortOrder
-    sheetId?: SortOrder
     imageId?: SortOrder
+    sheetUrl?: SortOrder
+    sheetTypeId?: SortOrder
   }
 
   export type MonsterSumOrderByAggregateInput = {
@@ -10389,8 +9306,8 @@ export namespace Prisma {
     sizeId?: SortOrder
     typeId?: SortOrder
     subTypeId?: SortOrder
-    sheetId?: SortOrder
     imageId?: SortOrder
+    sheetTypeId?: SortOrder
   }
 
   export type MonsterSizeCountOrderByAggregateInput = {
@@ -10485,49 +9402,6 @@ export namespace Prisma {
     id?: SortOrder
   }
 
-  export type SheetTypeRelationFilter = {
-    is?: SheetTypeWhereInput
-    isNot?: SheetTypeWhereInput
-  }
-
-  export type SheetCountOrderByAggregateInput = {
-    id?: SortOrder
-    url?: SortOrder
-    typeId?: SortOrder
-  }
-
-  export type SheetAvgOrderByAggregateInput = {
-    id?: SortOrder
-    typeId?: SortOrder
-  }
-
-  export type SheetMaxOrderByAggregateInput = {
-    id?: SortOrder
-    url?: SortOrder
-    typeId?: SortOrder
-  }
-
-  export type SheetMinOrderByAggregateInput = {
-    id?: SortOrder
-    url?: SortOrder
-    typeId?: SortOrder
-  }
-
-  export type SheetSumOrderByAggregateInput = {
-    id?: SortOrder
-    typeId?: SortOrder
-  }
-
-  export type SheetListRelationFilter = {
-    every?: SheetWhereInput
-    some?: SheetWhereInput
-    none?: SheetWhereInput
-  }
-
-  export type SheetOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type SheetTypeCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -10585,6 +9459,14 @@ export namespace Prisma {
     set?: string
   }
 
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type MonsterSizeUpdateOneRequiredWithoutMinisNestedInput = {
     create?: XOR<MonsterSizeCreateWithoutMinisInput, MonsterSizeUncheckedCreateWithoutMinisInput>
     connectOrCreate?: MonsterSizeCreateOrConnectWithoutMinisInput
@@ -10622,14 +9504,6 @@ export namespace Prisma {
     update?: MonsterUpdateWithWhereUniqueWithoutMinisInput | MonsterUpdateWithWhereUniqueWithoutMinisInput[]
     updateMany?: MonsterUpdateManyWithWhereWithoutMinisInput | MonsterUpdateManyWithWhereWithoutMinisInput[]
     deleteMany?: MonsterScalarWhereInput | MonsterScalarWhereInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -10671,16 +9545,16 @@ export namespace Prisma {
     connect?: MonsterSubTypeWhereUniqueInput
   }
 
-  export type SheetCreateNestedOneWithoutMonstersInput = {
-    create?: XOR<SheetCreateWithoutMonstersInput, SheetUncheckedCreateWithoutMonstersInput>
-    connectOrCreate?: SheetCreateOrConnectWithoutMonstersInput
-    connect?: SheetWhereUniqueInput
-  }
-
   export type ImageCreateNestedOneWithoutMonstersInput = {
     create?: XOR<ImageCreateWithoutMonstersInput, ImageUncheckedCreateWithoutMonstersInput>
     connectOrCreate?: ImageCreateOrConnectWithoutMonstersInput
     connect?: ImageWhereUniqueInput
+  }
+
+  export type SheetTypeCreateNestedOneWithoutMonsterInput = {
+    create?: XOR<SheetTypeCreateWithoutMonsterInput, SheetTypeUncheckedCreateWithoutMonsterInput>
+    connectOrCreate?: SheetTypeCreateOrConnectWithoutMonsterInput
+    connect?: SheetTypeWhereUniqueInput
   }
 
   export type MiniCreateNestedManyWithoutMonstersInput = {
@@ -10721,14 +9595,6 @@ export namespace Prisma {
     update?: XOR<XOR<MonsterSubTypeUpdateToOneWithWhereWithoutMonstersInput, MonsterSubTypeUpdateWithoutMonstersInput>, MonsterSubTypeUncheckedUpdateWithoutMonstersInput>
   }
 
-  export type SheetUpdateOneRequiredWithoutMonstersNestedInput = {
-    create?: XOR<SheetCreateWithoutMonstersInput, SheetUncheckedCreateWithoutMonstersInput>
-    connectOrCreate?: SheetCreateOrConnectWithoutMonstersInput
-    upsert?: SheetUpsertWithoutMonstersInput
-    connect?: SheetWhereUniqueInput
-    update?: XOR<XOR<SheetUpdateToOneWithWhereWithoutMonstersInput, SheetUpdateWithoutMonstersInput>, SheetUncheckedUpdateWithoutMonstersInput>
-  }
-
   export type ImageUpdateOneWithoutMonstersNestedInput = {
     create?: XOR<ImageCreateWithoutMonstersInput, ImageUncheckedCreateWithoutMonstersInput>
     connectOrCreate?: ImageCreateOrConnectWithoutMonstersInput
@@ -10737,6 +9603,14 @@ export namespace Prisma {
     delete?: ImageWhereInput | boolean
     connect?: ImageWhereUniqueInput
     update?: XOR<XOR<ImageUpdateToOneWithWhereWithoutMonstersInput, ImageUpdateWithoutMonstersInput>, ImageUncheckedUpdateWithoutMonstersInput>
+  }
+
+  export type SheetTypeUpdateOneRequiredWithoutMonsterNestedInput = {
+    create?: XOR<SheetTypeCreateWithoutMonsterInput, SheetTypeUncheckedCreateWithoutMonsterInput>
+    connectOrCreate?: SheetTypeCreateOrConnectWithoutMonsterInput
+    upsert?: SheetTypeUpsertWithoutMonsterInput
+    connect?: SheetTypeWhereUniqueInput
+    update?: XOR<XOR<SheetTypeUpdateToOneWithWhereWithoutMonsterInput, SheetTypeUpdateWithoutMonsterInput>, SheetTypeUncheckedUpdateWithoutMonsterInput>
   }
 
   export type MiniUpdateManyWithoutMonstersNestedInput = {
@@ -11031,94 +9905,42 @@ export namespace Prisma {
     deleteMany?: MonsterScalarWhereInput | MonsterScalarWhereInput[]
   }
 
-  export type SheetTypeCreateNestedOneWithoutSheetInput = {
-    create?: XOR<SheetTypeCreateWithoutSheetInput, SheetTypeUncheckedCreateWithoutSheetInput>
-    connectOrCreate?: SheetTypeCreateOrConnectWithoutSheetInput
-    connect?: SheetTypeWhereUniqueInput
-  }
-
-  export type MonsterCreateNestedManyWithoutSheetInput = {
-    create?: XOR<MonsterCreateWithoutSheetInput, MonsterUncheckedCreateWithoutSheetInput> | MonsterCreateWithoutSheetInput[] | MonsterUncheckedCreateWithoutSheetInput[]
-    connectOrCreate?: MonsterCreateOrConnectWithoutSheetInput | MonsterCreateOrConnectWithoutSheetInput[]
+  export type MonsterCreateNestedManyWithoutSheetTypeInput = {
+    create?: XOR<MonsterCreateWithoutSheetTypeInput, MonsterUncheckedCreateWithoutSheetTypeInput> | MonsterCreateWithoutSheetTypeInput[] | MonsterUncheckedCreateWithoutSheetTypeInput[]
+    connectOrCreate?: MonsterCreateOrConnectWithoutSheetTypeInput | MonsterCreateOrConnectWithoutSheetTypeInput[]
     connect?: MonsterWhereUniqueInput | MonsterWhereUniqueInput[]
   }
 
-  export type MonsterUncheckedCreateNestedManyWithoutSheetInput = {
-    create?: XOR<MonsterCreateWithoutSheetInput, MonsterUncheckedCreateWithoutSheetInput> | MonsterCreateWithoutSheetInput[] | MonsterUncheckedCreateWithoutSheetInput[]
-    connectOrCreate?: MonsterCreateOrConnectWithoutSheetInput | MonsterCreateOrConnectWithoutSheetInput[]
+  export type MonsterUncheckedCreateNestedManyWithoutSheetTypeInput = {
+    create?: XOR<MonsterCreateWithoutSheetTypeInput, MonsterUncheckedCreateWithoutSheetTypeInput> | MonsterCreateWithoutSheetTypeInput[] | MonsterUncheckedCreateWithoutSheetTypeInput[]
+    connectOrCreate?: MonsterCreateOrConnectWithoutSheetTypeInput | MonsterCreateOrConnectWithoutSheetTypeInput[]
     connect?: MonsterWhereUniqueInput | MonsterWhereUniqueInput[]
   }
 
-  export type SheetTypeUpdateOneRequiredWithoutSheetNestedInput = {
-    create?: XOR<SheetTypeCreateWithoutSheetInput, SheetTypeUncheckedCreateWithoutSheetInput>
-    connectOrCreate?: SheetTypeCreateOrConnectWithoutSheetInput
-    upsert?: SheetTypeUpsertWithoutSheetInput
-    connect?: SheetTypeWhereUniqueInput
-    update?: XOR<XOR<SheetTypeUpdateToOneWithWhereWithoutSheetInput, SheetTypeUpdateWithoutSheetInput>, SheetTypeUncheckedUpdateWithoutSheetInput>
-  }
-
-  export type MonsterUpdateManyWithoutSheetNestedInput = {
-    create?: XOR<MonsterCreateWithoutSheetInput, MonsterUncheckedCreateWithoutSheetInput> | MonsterCreateWithoutSheetInput[] | MonsterUncheckedCreateWithoutSheetInput[]
-    connectOrCreate?: MonsterCreateOrConnectWithoutSheetInput | MonsterCreateOrConnectWithoutSheetInput[]
-    upsert?: MonsterUpsertWithWhereUniqueWithoutSheetInput | MonsterUpsertWithWhereUniqueWithoutSheetInput[]
+  export type MonsterUpdateManyWithoutSheetTypeNestedInput = {
+    create?: XOR<MonsterCreateWithoutSheetTypeInput, MonsterUncheckedCreateWithoutSheetTypeInput> | MonsterCreateWithoutSheetTypeInput[] | MonsterUncheckedCreateWithoutSheetTypeInput[]
+    connectOrCreate?: MonsterCreateOrConnectWithoutSheetTypeInput | MonsterCreateOrConnectWithoutSheetTypeInput[]
+    upsert?: MonsterUpsertWithWhereUniqueWithoutSheetTypeInput | MonsterUpsertWithWhereUniqueWithoutSheetTypeInput[]
     set?: MonsterWhereUniqueInput | MonsterWhereUniqueInput[]
     disconnect?: MonsterWhereUniqueInput | MonsterWhereUniqueInput[]
     delete?: MonsterWhereUniqueInput | MonsterWhereUniqueInput[]
     connect?: MonsterWhereUniqueInput | MonsterWhereUniqueInput[]
-    update?: MonsterUpdateWithWhereUniqueWithoutSheetInput | MonsterUpdateWithWhereUniqueWithoutSheetInput[]
-    updateMany?: MonsterUpdateManyWithWhereWithoutSheetInput | MonsterUpdateManyWithWhereWithoutSheetInput[]
+    update?: MonsterUpdateWithWhereUniqueWithoutSheetTypeInput | MonsterUpdateWithWhereUniqueWithoutSheetTypeInput[]
+    updateMany?: MonsterUpdateManyWithWhereWithoutSheetTypeInput | MonsterUpdateManyWithWhereWithoutSheetTypeInput[]
     deleteMany?: MonsterScalarWhereInput | MonsterScalarWhereInput[]
   }
 
-  export type MonsterUncheckedUpdateManyWithoutSheetNestedInput = {
-    create?: XOR<MonsterCreateWithoutSheetInput, MonsterUncheckedCreateWithoutSheetInput> | MonsterCreateWithoutSheetInput[] | MonsterUncheckedCreateWithoutSheetInput[]
-    connectOrCreate?: MonsterCreateOrConnectWithoutSheetInput | MonsterCreateOrConnectWithoutSheetInput[]
-    upsert?: MonsterUpsertWithWhereUniqueWithoutSheetInput | MonsterUpsertWithWhereUniqueWithoutSheetInput[]
+  export type MonsterUncheckedUpdateManyWithoutSheetTypeNestedInput = {
+    create?: XOR<MonsterCreateWithoutSheetTypeInput, MonsterUncheckedCreateWithoutSheetTypeInput> | MonsterCreateWithoutSheetTypeInput[] | MonsterUncheckedCreateWithoutSheetTypeInput[]
+    connectOrCreate?: MonsterCreateOrConnectWithoutSheetTypeInput | MonsterCreateOrConnectWithoutSheetTypeInput[]
+    upsert?: MonsterUpsertWithWhereUniqueWithoutSheetTypeInput | MonsterUpsertWithWhereUniqueWithoutSheetTypeInput[]
     set?: MonsterWhereUniqueInput | MonsterWhereUniqueInput[]
     disconnect?: MonsterWhereUniqueInput | MonsterWhereUniqueInput[]
     delete?: MonsterWhereUniqueInput | MonsterWhereUniqueInput[]
     connect?: MonsterWhereUniqueInput | MonsterWhereUniqueInput[]
-    update?: MonsterUpdateWithWhereUniqueWithoutSheetInput | MonsterUpdateWithWhereUniqueWithoutSheetInput[]
-    updateMany?: MonsterUpdateManyWithWhereWithoutSheetInput | MonsterUpdateManyWithWhereWithoutSheetInput[]
+    update?: MonsterUpdateWithWhereUniqueWithoutSheetTypeInput | MonsterUpdateWithWhereUniqueWithoutSheetTypeInput[]
+    updateMany?: MonsterUpdateManyWithWhereWithoutSheetTypeInput | MonsterUpdateManyWithWhereWithoutSheetTypeInput[]
     deleteMany?: MonsterScalarWhereInput | MonsterScalarWhereInput[]
-  }
-
-  export type SheetCreateNestedManyWithoutTypeInput = {
-    create?: XOR<SheetCreateWithoutTypeInput, SheetUncheckedCreateWithoutTypeInput> | SheetCreateWithoutTypeInput[] | SheetUncheckedCreateWithoutTypeInput[]
-    connectOrCreate?: SheetCreateOrConnectWithoutTypeInput | SheetCreateOrConnectWithoutTypeInput[]
-    connect?: SheetWhereUniqueInput | SheetWhereUniqueInput[]
-  }
-
-  export type SheetUncheckedCreateNestedManyWithoutTypeInput = {
-    create?: XOR<SheetCreateWithoutTypeInput, SheetUncheckedCreateWithoutTypeInput> | SheetCreateWithoutTypeInput[] | SheetUncheckedCreateWithoutTypeInput[]
-    connectOrCreate?: SheetCreateOrConnectWithoutTypeInput | SheetCreateOrConnectWithoutTypeInput[]
-    connect?: SheetWhereUniqueInput | SheetWhereUniqueInput[]
-  }
-
-  export type SheetUpdateManyWithoutTypeNestedInput = {
-    create?: XOR<SheetCreateWithoutTypeInput, SheetUncheckedCreateWithoutTypeInput> | SheetCreateWithoutTypeInput[] | SheetUncheckedCreateWithoutTypeInput[]
-    connectOrCreate?: SheetCreateOrConnectWithoutTypeInput | SheetCreateOrConnectWithoutTypeInput[]
-    upsert?: SheetUpsertWithWhereUniqueWithoutTypeInput | SheetUpsertWithWhereUniqueWithoutTypeInput[]
-    set?: SheetWhereUniqueInput | SheetWhereUniqueInput[]
-    disconnect?: SheetWhereUniqueInput | SheetWhereUniqueInput[]
-    delete?: SheetWhereUniqueInput | SheetWhereUniqueInput[]
-    connect?: SheetWhereUniqueInput | SheetWhereUniqueInput[]
-    update?: SheetUpdateWithWhereUniqueWithoutTypeInput | SheetUpdateWithWhereUniqueWithoutTypeInput[]
-    updateMany?: SheetUpdateManyWithWhereWithoutTypeInput | SheetUpdateManyWithWhereWithoutTypeInput[]
-    deleteMany?: SheetScalarWhereInput | SheetScalarWhereInput[]
-  }
-
-  export type SheetUncheckedUpdateManyWithoutTypeNestedInput = {
-    create?: XOR<SheetCreateWithoutTypeInput, SheetUncheckedCreateWithoutTypeInput> | SheetCreateWithoutTypeInput[] | SheetUncheckedCreateWithoutTypeInput[]
-    connectOrCreate?: SheetCreateOrConnectWithoutTypeInput | SheetCreateOrConnectWithoutTypeInput[]
-    upsert?: SheetUpsertWithWhereUniqueWithoutTypeInput | SheetUpsertWithWhereUniqueWithoutTypeInput[]
-    set?: SheetWhereUniqueInput | SheetWhereUniqueInput[]
-    disconnect?: SheetWhereUniqueInput | SheetWhereUniqueInput[]
-    delete?: SheetWhereUniqueInput | SheetWhereUniqueInput[]
-    connect?: SheetWhereUniqueInput | SheetWhereUniqueInput[]
-    update?: SheetUpdateWithWhereUniqueWithoutTypeInput | SheetUpdateWithWhereUniqueWithoutTypeInput[]
-    updateMany?: SheetUpdateManyWithWhereWithoutTypeInput | SheetUpdateManyWithWhereWithoutTypeInput[]
-    deleteMany?: SheetScalarWhereInput | SheetScalarWhereInput[]
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -11278,11 +10100,12 @@ export namespace Prisma {
 
   export type MonsterCreateWithoutMinisInput = {
     name: string
+    sheetUrl: string
     size: MonsterSizeCreateNestedOneWithoutMonstersInput
     type: MonsterTypeCreateNestedOneWithoutMonstersInput
     subType?: MonsterSubTypeCreateNestedOneWithoutMonstersInput
-    sheet: SheetCreateNestedOneWithoutMonstersInput
     image?: ImageCreateNestedOneWithoutMonstersInput
+    sheetType: SheetTypeCreateNestedOneWithoutMonsterInput
   }
 
   export type MonsterUncheckedCreateWithoutMinisInput = {
@@ -11291,8 +10114,9 @@ export namespace Prisma {
     sizeId: number
     typeId: number
     subTypeId?: number | null
-    sheetId: number
     imageId?: number | null
+    sheetUrl: string
+    sheetTypeId: number
   }
 
   export type MonsterCreateOrConnectWithoutMinisInput = {
@@ -11391,8 +10215,9 @@ export namespace Prisma {
     sizeId?: IntFilter<"Monster"> | number
     typeId?: IntFilter<"Monster"> | number
     subTypeId?: IntNullableFilter<"Monster"> | number | null
-    sheetId?: IntFilter<"Monster"> | number
     imageId?: IntNullableFilter<"Monster"> | number | null
+    sheetUrl?: StringFilter<"Monster"> | string
+    sheetTypeId?: IntFilter<"Monster"> | number
   }
 
   export type MonsterSizeCreateWithoutMonstersInput = {
@@ -11443,22 +10268,6 @@ export namespace Prisma {
     create: XOR<MonsterSubTypeCreateWithoutMonstersInput, MonsterSubTypeUncheckedCreateWithoutMonstersInput>
   }
 
-  export type SheetCreateWithoutMonstersInput = {
-    url: string
-    type: SheetTypeCreateNestedOneWithoutSheetInput
-  }
-
-  export type SheetUncheckedCreateWithoutMonstersInput = {
-    id?: number
-    url: string
-    typeId: number
-  }
-
-  export type SheetCreateOrConnectWithoutMonstersInput = {
-    where: SheetWhereUniqueInput
-    create: XOR<SheetCreateWithoutMonstersInput, SheetUncheckedCreateWithoutMonstersInput>
-  }
-
   export type ImageCreateWithoutMonstersInput = {
     url: string
   }
@@ -11473,8 +10282,23 @@ export namespace Prisma {
     create: XOR<ImageCreateWithoutMonstersInput, ImageUncheckedCreateWithoutMonstersInput>
   }
 
+  export type SheetTypeCreateWithoutMonsterInput = {
+    name: string
+  }
+
+  export type SheetTypeUncheckedCreateWithoutMonsterInput = {
+    id?: number
+    name: string
+  }
+
+  export type SheetTypeCreateOrConnectWithoutMonsterInput = {
+    where: SheetTypeWhereUniqueInput
+    create: XOR<SheetTypeCreateWithoutMonsterInput, SheetTypeUncheckedCreateWithoutMonsterInput>
+  }
+
   export type MiniCreateWithoutMonstersInput = {
     name: string
+    quantity: number
     size: MonsterSizeCreateNestedOneWithoutMinisInput
     type: MonsterTypeCreateNestedOneWithoutMinisInput
     subType?: MonsterSubTypeCreateNestedOneWithoutMinisInput
@@ -11486,6 +10310,7 @@ export namespace Prisma {
     sizeId: number
     typeId: number
     subTypeId?: number | null
+    quantity: number
   }
 
   export type MiniCreateOrConnectWithoutMonstersInput = {
@@ -11559,28 +10384,6 @@ export namespace Prisma {
     minis?: MiniUncheckedUpdateManyWithoutSubTypeNestedInput
   }
 
-  export type SheetUpsertWithoutMonstersInput = {
-    update: XOR<SheetUpdateWithoutMonstersInput, SheetUncheckedUpdateWithoutMonstersInput>
-    create: XOR<SheetCreateWithoutMonstersInput, SheetUncheckedCreateWithoutMonstersInput>
-    where?: SheetWhereInput
-  }
-
-  export type SheetUpdateToOneWithWhereWithoutMonstersInput = {
-    where?: SheetWhereInput
-    data: XOR<SheetUpdateWithoutMonstersInput, SheetUncheckedUpdateWithoutMonstersInput>
-  }
-
-  export type SheetUpdateWithoutMonstersInput = {
-    url?: StringFieldUpdateOperationsInput | string
-    type?: SheetTypeUpdateOneRequiredWithoutSheetNestedInput
-  }
-
-  export type SheetUncheckedUpdateWithoutMonstersInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    url?: StringFieldUpdateOperationsInput | string
-    typeId?: IntFieldUpdateOperationsInput | number
-  }
-
   export type ImageUpsertWithoutMonstersInput = {
     update: XOR<ImageUpdateWithoutMonstersInput, ImageUncheckedUpdateWithoutMonstersInput>
     create: XOR<ImageCreateWithoutMonstersInput, ImageUncheckedCreateWithoutMonstersInput>
@@ -11599,6 +10402,26 @@ export namespace Prisma {
   export type ImageUncheckedUpdateWithoutMonstersInput = {
     id?: IntFieldUpdateOperationsInput | number
     url?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SheetTypeUpsertWithoutMonsterInput = {
+    update: XOR<SheetTypeUpdateWithoutMonsterInput, SheetTypeUncheckedUpdateWithoutMonsterInput>
+    create: XOR<SheetTypeCreateWithoutMonsterInput, SheetTypeUncheckedCreateWithoutMonsterInput>
+    where?: SheetTypeWhereInput
+  }
+
+  export type SheetTypeUpdateToOneWithWhereWithoutMonsterInput = {
+    where?: SheetTypeWhereInput
+    data: XOR<SheetTypeUpdateWithoutMonsterInput, SheetTypeUncheckedUpdateWithoutMonsterInput>
+  }
+
+  export type SheetTypeUpdateWithoutMonsterInput = {
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SheetTypeUncheckedUpdateWithoutMonsterInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
   }
 
   export type MiniUpsertWithWhereUniqueWithoutMonstersInput = {
@@ -11626,10 +10449,12 @@ export namespace Prisma {
     sizeId?: IntFilter<"Mini"> | number
     typeId?: IntFilter<"Mini"> | number
     subTypeId?: IntNullableFilter<"Mini"> | number | null
+    quantity?: IntFilter<"Mini"> | number
   }
 
   export type MiniCreateWithoutSizeInput = {
     name: string
+    quantity: number
     type: MonsterTypeCreateNestedOneWithoutMinisInput
     subType?: MonsterSubTypeCreateNestedOneWithoutMinisInput
     monsters?: MonsterCreateNestedManyWithoutMinisInput
@@ -11640,6 +10465,7 @@ export namespace Prisma {
     name: string
     typeId: number
     subTypeId?: number | null
+    quantity: number
     monsters?: MonsterUncheckedCreateNestedManyWithoutMinisInput
   }
 
@@ -11650,10 +10476,11 @@ export namespace Prisma {
 
   export type MonsterCreateWithoutSizeInput = {
     name: string
+    sheetUrl: string
     type: MonsterTypeCreateNestedOneWithoutMonstersInput
     subType?: MonsterSubTypeCreateNestedOneWithoutMonstersInput
-    sheet: SheetCreateNestedOneWithoutMonstersInput
     image?: ImageCreateNestedOneWithoutMonstersInput
+    sheetType: SheetTypeCreateNestedOneWithoutMonsterInput
     minis?: MiniCreateNestedManyWithoutMonstersInput
   }
 
@@ -11662,8 +10489,9 @@ export namespace Prisma {
     name: string
     typeId: number
     subTypeId?: number | null
-    sheetId: number
     imageId?: number | null
+    sheetUrl: string
+    sheetTypeId: number
     minis?: MiniUncheckedCreateNestedManyWithoutMonstersInput
   }
 
@@ -11706,6 +10534,7 @@ export namespace Prisma {
 
   export type MiniCreateWithoutTypeInput = {
     name: string
+    quantity: number
     size: MonsterSizeCreateNestedOneWithoutMinisInput
     subType?: MonsterSubTypeCreateNestedOneWithoutMinisInput
     monsters?: MonsterCreateNestedManyWithoutMinisInput
@@ -11716,6 +10545,7 @@ export namespace Prisma {
     name: string
     sizeId: number
     subTypeId?: number | null
+    quantity: number
     monsters?: MonsterUncheckedCreateNestedManyWithoutMinisInput
   }
 
@@ -11726,10 +10556,11 @@ export namespace Prisma {
 
   export type MonsterCreateWithoutTypeInput = {
     name: string
+    sheetUrl: string
     size: MonsterSizeCreateNestedOneWithoutMonstersInput
     subType?: MonsterSubTypeCreateNestedOneWithoutMonstersInput
-    sheet: SheetCreateNestedOneWithoutMonstersInput
     image?: ImageCreateNestedOneWithoutMonstersInput
+    sheetType: SheetTypeCreateNestedOneWithoutMonsterInput
     minis?: MiniCreateNestedManyWithoutMonstersInput
   }
 
@@ -11738,8 +10569,9 @@ export namespace Prisma {
     name: string
     sizeId: number
     subTypeId?: number | null
-    sheetId: number
     imageId?: number | null
+    sheetUrl: string
+    sheetTypeId: number
     minis?: MiniUncheckedCreateNestedManyWithoutMonstersInput
   }
 
@@ -11782,6 +10614,7 @@ export namespace Prisma {
 
   export type MiniCreateWithoutSubTypeInput = {
     name: string
+    quantity: number
     size: MonsterSizeCreateNestedOneWithoutMinisInput
     type: MonsterTypeCreateNestedOneWithoutMinisInput
     monsters?: MonsterCreateNestedManyWithoutMinisInput
@@ -11792,6 +10625,7 @@ export namespace Prisma {
     name: string
     sizeId: number
     typeId: number
+    quantity: number
     monsters?: MonsterUncheckedCreateNestedManyWithoutMinisInput
   }
 
@@ -11802,10 +10636,11 @@ export namespace Prisma {
 
   export type MonsterCreateWithoutSubTypeInput = {
     name: string
+    sheetUrl: string
     size: MonsterSizeCreateNestedOneWithoutMonstersInput
     type: MonsterTypeCreateNestedOneWithoutMonstersInput
-    sheet: SheetCreateNestedOneWithoutMonstersInput
     image?: ImageCreateNestedOneWithoutMonstersInput
+    sheetType: SheetTypeCreateNestedOneWithoutMonsterInput
     minis?: MiniCreateNestedManyWithoutMonstersInput
   }
 
@@ -11814,8 +10649,9 @@ export namespace Prisma {
     name: string
     sizeId: number
     typeId: number
-    sheetId: number
     imageId?: number | null
+    sheetUrl: string
+    sheetTypeId: number
     minis?: MiniUncheckedCreateNestedManyWithoutMonstersInput
   }
 
@@ -11858,10 +10694,11 @@ export namespace Prisma {
 
   export type MonsterCreateWithoutImageInput = {
     name: string
+    sheetUrl: string
     size: MonsterSizeCreateNestedOneWithoutMonstersInput
     type: MonsterTypeCreateNestedOneWithoutMonstersInput
     subType?: MonsterSubTypeCreateNestedOneWithoutMonstersInput
-    sheet: SheetCreateNestedOneWithoutMonstersInput
+    sheetType: SheetTypeCreateNestedOneWithoutMonsterInput
     minis?: MiniCreateNestedManyWithoutMonstersInput
   }
 
@@ -11871,7 +10708,8 @@ export namespace Prisma {
     sizeId: number
     typeId: number
     subTypeId?: number | null
-    sheetId: number
+    sheetUrl: string
+    sheetTypeId: number
     minis?: MiniUncheckedCreateNestedManyWithoutMonstersInput
   }
 
@@ -11896,22 +10734,9 @@ export namespace Prisma {
     data: XOR<MonsterUpdateManyMutationInput, MonsterUncheckedUpdateManyWithoutImageInput>
   }
 
-  export type SheetTypeCreateWithoutSheetInput = {
+  export type MonsterCreateWithoutSheetTypeInput = {
     name: string
-  }
-
-  export type SheetTypeUncheckedCreateWithoutSheetInput = {
-    id?: number
-    name: string
-  }
-
-  export type SheetTypeCreateOrConnectWithoutSheetInput = {
-    where: SheetTypeWhereUniqueInput
-    create: XOR<SheetTypeCreateWithoutSheetInput, SheetTypeUncheckedCreateWithoutSheetInput>
-  }
-
-  export type MonsterCreateWithoutSheetInput = {
-    name: string
+    sheetUrl: string
     size: MonsterSizeCreateNestedOneWithoutMonstersInput
     type: MonsterTypeCreateNestedOneWithoutMonstersInput
     subType?: MonsterSubTypeCreateNestedOneWithoutMonstersInput
@@ -11919,105 +10744,46 @@ export namespace Prisma {
     minis?: MiniCreateNestedManyWithoutMonstersInput
   }
 
-  export type MonsterUncheckedCreateWithoutSheetInput = {
+  export type MonsterUncheckedCreateWithoutSheetTypeInput = {
     id?: number
     name: string
     sizeId: number
     typeId: number
     subTypeId?: number | null
     imageId?: number | null
+    sheetUrl: string
     minis?: MiniUncheckedCreateNestedManyWithoutMonstersInput
   }
 
-  export type MonsterCreateOrConnectWithoutSheetInput = {
+  export type MonsterCreateOrConnectWithoutSheetTypeInput = {
     where: MonsterWhereUniqueInput
-    create: XOR<MonsterCreateWithoutSheetInput, MonsterUncheckedCreateWithoutSheetInput>
+    create: XOR<MonsterCreateWithoutSheetTypeInput, MonsterUncheckedCreateWithoutSheetTypeInput>
   }
 
-  export type SheetTypeUpsertWithoutSheetInput = {
-    update: XOR<SheetTypeUpdateWithoutSheetInput, SheetTypeUncheckedUpdateWithoutSheetInput>
-    create: XOR<SheetTypeCreateWithoutSheetInput, SheetTypeUncheckedCreateWithoutSheetInput>
-    where?: SheetTypeWhereInput
-  }
-
-  export type SheetTypeUpdateToOneWithWhereWithoutSheetInput = {
-    where?: SheetTypeWhereInput
-    data: XOR<SheetTypeUpdateWithoutSheetInput, SheetTypeUncheckedUpdateWithoutSheetInput>
-  }
-
-  export type SheetTypeUpdateWithoutSheetInput = {
-    name?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type SheetTypeUncheckedUpdateWithoutSheetInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type MonsterUpsertWithWhereUniqueWithoutSheetInput = {
+  export type MonsterUpsertWithWhereUniqueWithoutSheetTypeInput = {
     where: MonsterWhereUniqueInput
-    update: XOR<MonsterUpdateWithoutSheetInput, MonsterUncheckedUpdateWithoutSheetInput>
-    create: XOR<MonsterCreateWithoutSheetInput, MonsterUncheckedCreateWithoutSheetInput>
+    update: XOR<MonsterUpdateWithoutSheetTypeInput, MonsterUncheckedUpdateWithoutSheetTypeInput>
+    create: XOR<MonsterCreateWithoutSheetTypeInput, MonsterUncheckedCreateWithoutSheetTypeInput>
   }
 
-  export type MonsterUpdateWithWhereUniqueWithoutSheetInput = {
+  export type MonsterUpdateWithWhereUniqueWithoutSheetTypeInput = {
     where: MonsterWhereUniqueInput
-    data: XOR<MonsterUpdateWithoutSheetInput, MonsterUncheckedUpdateWithoutSheetInput>
+    data: XOR<MonsterUpdateWithoutSheetTypeInput, MonsterUncheckedUpdateWithoutSheetTypeInput>
   }
 
-  export type MonsterUpdateManyWithWhereWithoutSheetInput = {
+  export type MonsterUpdateManyWithWhereWithoutSheetTypeInput = {
     where: MonsterScalarWhereInput
-    data: XOR<MonsterUpdateManyMutationInput, MonsterUncheckedUpdateManyWithoutSheetInput>
-  }
-
-  export type SheetCreateWithoutTypeInput = {
-    url: string
-    monsters?: MonsterCreateNestedManyWithoutSheetInput
-  }
-
-  export type SheetUncheckedCreateWithoutTypeInput = {
-    id?: number
-    url: string
-    monsters?: MonsterUncheckedCreateNestedManyWithoutSheetInput
-  }
-
-  export type SheetCreateOrConnectWithoutTypeInput = {
-    where: SheetWhereUniqueInput
-    create: XOR<SheetCreateWithoutTypeInput, SheetUncheckedCreateWithoutTypeInput>
-  }
-
-  export type SheetUpsertWithWhereUniqueWithoutTypeInput = {
-    where: SheetWhereUniqueInput
-    update: XOR<SheetUpdateWithoutTypeInput, SheetUncheckedUpdateWithoutTypeInput>
-    create: XOR<SheetCreateWithoutTypeInput, SheetUncheckedCreateWithoutTypeInput>
-  }
-
-  export type SheetUpdateWithWhereUniqueWithoutTypeInput = {
-    where: SheetWhereUniqueInput
-    data: XOR<SheetUpdateWithoutTypeInput, SheetUncheckedUpdateWithoutTypeInput>
-  }
-
-  export type SheetUpdateManyWithWhereWithoutTypeInput = {
-    where: SheetScalarWhereInput
-    data: XOR<SheetUpdateManyMutationInput, SheetUncheckedUpdateManyWithoutTypeInput>
-  }
-
-  export type SheetScalarWhereInput = {
-    AND?: SheetScalarWhereInput | SheetScalarWhereInput[]
-    OR?: SheetScalarWhereInput[]
-    NOT?: SheetScalarWhereInput | SheetScalarWhereInput[]
-    id?: IntFilter<"Sheet"> | number
-    url?: StringFilter<"Sheet"> | string
-    typeId?: IntFilter<"Sheet"> | number
+    data: XOR<MonsterUpdateManyMutationInput, MonsterUncheckedUpdateManyWithoutSheetTypeInput>
   }
 
   export type MonsterUpdateWithoutMinisInput = {
     name?: StringFieldUpdateOperationsInput | string
+    sheetUrl?: StringFieldUpdateOperationsInput | string
     size?: MonsterSizeUpdateOneRequiredWithoutMonstersNestedInput
     type?: MonsterTypeUpdateOneRequiredWithoutMonstersNestedInput
     subType?: MonsterSubTypeUpdateOneWithoutMonstersNestedInput
-    sheet?: SheetUpdateOneRequiredWithoutMonstersNestedInput
     image?: ImageUpdateOneWithoutMonstersNestedInput
+    sheetType?: SheetTypeUpdateOneRequiredWithoutMonsterNestedInput
   }
 
   export type MonsterUncheckedUpdateWithoutMinisInput = {
@@ -12026,8 +10792,9 @@ export namespace Prisma {
     sizeId?: IntFieldUpdateOperationsInput | number
     typeId?: IntFieldUpdateOperationsInput | number
     subTypeId?: NullableIntFieldUpdateOperationsInput | number | null
-    sheetId?: IntFieldUpdateOperationsInput | number
     imageId?: NullableIntFieldUpdateOperationsInput | number | null
+    sheetUrl?: StringFieldUpdateOperationsInput | string
+    sheetTypeId?: IntFieldUpdateOperationsInput | number
   }
 
   export type MonsterUncheckedUpdateManyWithoutMinisInput = {
@@ -12036,12 +10803,14 @@ export namespace Prisma {
     sizeId?: IntFieldUpdateOperationsInput | number
     typeId?: IntFieldUpdateOperationsInput | number
     subTypeId?: NullableIntFieldUpdateOperationsInput | number | null
-    sheetId?: IntFieldUpdateOperationsInput | number
     imageId?: NullableIntFieldUpdateOperationsInput | number | null
+    sheetUrl?: StringFieldUpdateOperationsInput | string
+    sheetTypeId?: IntFieldUpdateOperationsInput | number
   }
 
   export type MiniUpdateWithoutMonstersInput = {
     name?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
     size?: MonsterSizeUpdateOneRequiredWithoutMinisNestedInput
     type?: MonsterTypeUpdateOneRequiredWithoutMinisNestedInput
     subType?: MonsterSubTypeUpdateOneWithoutMinisNestedInput
@@ -12053,6 +10822,7 @@ export namespace Prisma {
     sizeId?: IntFieldUpdateOperationsInput | number
     typeId?: IntFieldUpdateOperationsInput | number
     subTypeId?: NullableIntFieldUpdateOperationsInput | number | null
+    quantity?: IntFieldUpdateOperationsInput | number
   }
 
   export type MiniUncheckedUpdateManyWithoutMonstersInput = {
@@ -12061,10 +10831,12 @@ export namespace Prisma {
     sizeId?: IntFieldUpdateOperationsInput | number
     typeId?: IntFieldUpdateOperationsInput | number
     subTypeId?: NullableIntFieldUpdateOperationsInput | number | null
+    quantity?: IntFieldUpdateOperationsInput | number
   }
 
   export type MiniUpdateWithoutSizeInput = {
     name?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
     type?: MonsterTypeUpdateOneRequiredWithoutMinisNestedInput
     subType?: MonsterSubTypeUpdateOneWithoutMinisNestedInput
     monsters?: MonsterUpdateManyWithoutMinisNestedInput
@@ -12075,6 +10847,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     typeId?: IntFieldUpdateOperationsInput | number
     subTypeId?: NullableIntFieldUpdateOperationsInput | number | null
+    quantity?: IntFieldUpdateOperationsInput | number
     monsters?: MonsterUncheckedUpdateManyWithoutMinisNestedInput
   }
 
@@ -12083,14 +10856,16 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     typeId?: IntFieldUpdateOperationsInput | number
     subTypeId?: NullableIntFieldUpdateOperationsInput | number | null
+    quantity?: IntFieldUpdateOperationsInput | number
   }
 
   export type MonsterUpdateWithoutSizeInput = {
     name?: StringFieldUpdateOperationsInput | string
+    sheetUrl?: StringFieldUpdateOperationsInput | string
     type?: MonsterTypeUpdateOneRequiredWithoutMonstersNestedInput
     subType?: MonsterSubTypeUpdateOneWithoutMonstersNestedInput
-    sheet?: SheetUpdateOneRequiredWithoutMonstersNestedInput
     image?: ImageUpdateOneWithoutMonstersNestedInput
+    sheetType?: SheetTypeUpdateOneRequiredWithoutMonsterNestedInput
     minis?: MiniUpdateManyWithoutMonstersNestedInput
   }
 
@@ -12099,8 +10874,9 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     typeId?: IntFieldUpdateOperationsInput | number
     subTypeId?: NullableIntFieldUpdateOperationsInput | number | null
-    sheetId?: IntFieldUpdateOperationsInput | number
     imageId?: NullableIntFieldUpdateOperationsInput | number | null
+    sheetUrl?: StringFieldUpdateOperationsInput | string
+    sheetTypeId?: IntFieldUpdateOperationsInput | number
     minis?: MiniUncheckedUpdateManyWithoutMonstersNestedInput
   }
 
@@ -12109,12 +10885,14 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     typeId?: IntFieldUpdateOperationsInput | number
     subTypeId?: NullableIntFieldUpdateOperationsInput | number | null
-    sheetId?: IntFieldUpdateOperationsInput | number
     imageId?: NullableIntFieldUpdateOperationsInput | number | null
+    sheetUrl?: StringFieldUpdateOperationsInput | string
+    sheetTypeId?: IntFieldUpdateOperationsInput | number
   }
 
   export type MiniUpdateWithoutTypeInput = {
     name?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
     size?: MonsterSizeUpdateOneRequiredWithoutMinisNestedInput
     subType?: MonsterSubTypeUpdateOneWithoutMinisNestedInput
     monsters?: MonsterUpdateManyWithoutMinisNestedInput
@@ -12125,6 +10903,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     sizeId?: IntFieldUpdateOperationsInput | number
     subTypeId?: NullableIntFieldUpdateOperationsInput | number | null
+    quantity?: IntFieldUpdateOperationsInput | number
     monsters?: MonsterUncheckedUpdateManyWithoutMinisNestedInput
   }
 
@@ -12133,14 +10912,16 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     sizeId?: IntFieldUpdateOperationsInput | number
     subTypeId?: NullableIntFieldUpdateOperationsInput | number | null
+    quantity?: IntFieldUpdateOperationsInput | number
   }
 
   export type MonsterUpdateWithoutTypeInput = {
     name?: StringFieldUpdateOperationsInput | string
+    sheetUrl?: StringFieldUpdateOperationsInput | string
     size?: MonsterSizeUpdateOneRequiredWithoutMonstersNestedInput
     subType?: MonsterSubTypeUpdateOneWithoutMonstersNestedInput
-    sheet?: SheetUpdateOneRequiredWithoutMonstersNestedInput
     image?: ImageUpdateOneWithoutMonstersNestedInput
+    sheetType?: SheetTypeUpdateOneRequiredWithoutMonsterNestedInput
     minis?: MiniUpdateManyWithoutMonstersNestedInput
   }
 
@@ -12149,8 +10930,9 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     sizeId?: IntFieldUpdateOperationsInput | number
     subTypeId?: NullableIntFieldUpdateOperationsInput | number | null
-    sheetId?: IntFieldUpdateOperationsInput | number
     imageId?: NullableIntFieldUpdateOperationsInput | number | null
+    sheetUrl?: StringFieldUpdateOperationsInput | string
+    sheetTypeId?: IntFieldUpdateOperationsInput | number
     minis?: MiniUncheckedUpdateManyWithoutMonstersNestedInput
   }
 
@@ -12159,12 +10941,14 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     sizeId?: IntFieldUpdateOperationsInput | number
     subTypeId?: NullableIntFieldUpdateOperationsInput | number | null
-    sheetId?: IntFieldUpdateOperationsInput | number
     imageId?: NullableIntFieldUpdateOperationsInput | number | null
+    sheetUrl?: StringFieldUpdateOperationsInput | string
+    sheetTypeId?: IntFieldUpdateOperationsInput | number
   }
 
   export type MiniUpdateWithoutSubTypeInput = {
     name?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
     size?: MonsterSizeUpdateOneRequiredWithoutMinisNestedInput
     type?: MonsterTypeUpdateOneRequiredWithoutMinisNestedInput
     monsters?: MonsterUpdateManyWithoutMinisNestedInput
@@ -12175,6 +10959,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     sizeId?: IntFieldUpdateOperationsInput | number
     typeId?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
     monsters?: MonsterUncheckedUpdateManyWithoutMinisNestedInput
   }
 
@@ -12183,14 +10968,16 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     sizeId?: IntFieldUpdateOperationsInput | number
     typeId?: IntFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
   }
 
   export type MonsterUpdateWithoutSubTypeInput = {
     name?: StringFieldUpdateOperationsInput | string
+    sheetUrl?: StringFieldUpdateOperationsInput | string
     size?: MonsterSizeUpdateOneRequiredWithoutMonstersNestedInput
     type?: MonsterTypeUpdateOneRequiredWithoutMonstersNestedInput
-    sheet?: SheetUpdateOneRequiredWithoutMonstersNestedInput
     image?: ImageUpdateOneWithoutMonstersNestedInput
+    sheetType?: SheetTypeUpdateOneRequiredWithoutMonsterNestedInput
     minis?: MiniUpdateManyWithoutMonstersNestedInput
   }
 
@@ -12199,8 +10986,9 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     sizeId?: IntFieldUpdateOperationsInput | number
     typeId?: IntFieldUpdateOperationsInput | number
-    sheetId?: IntFieldUpdateOperationsInput | number
     imageId?: NullableIntFieldUpdateOperationsInput | number | null
+    sheetUrl?: StringFieldUpdateOperationsInput | string
+    sheetTypeId?: IntFieldUpdateOperationsInput | number
     minis?: MiniUncheckedUpdateManyWithoutMonstersNestedInput
   }
 
@@ -12209,16 +10997,18 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     sizeId?: IntFieldUpdateOperationsInput | number
     typeId?: IntFieldUpdateOperationsInput | number
-    sheetId?: IntFieldUpdateOperationsInput | number
     imageId?: NullableIntFieldUpdateOperationsInput | number | null
+    sheetUrl?: StringFieldUpdateOperationsInput | string
+    sheetTypeId?: IntFieldUpdateOperationsInput | number
   }
 
   export type MonsterUpdateWithoutImageInput = {
     name?: StringFieldUpdateOperationsInput | string
+    sheetUrl?: StringFieldUpdateOperationsInput | string
     size?: MonsterSizeUpdateOneRequiredWithoutMonstersNestedInput
     type?: MonsterTypeUpdateOneRequiredWithoutMonstersNestedInput
     subType?: MonsterSubTypeUpdateOneWithoutMonstersNestedInput
-    sheet?: SheetUpdateOneRequiredWithoutMonstersNestedInput
+    sheetType?: SheetTypeUpdateOneRequiredWithoutMonsterNestedInput
     minis?: MiniUpdateManyWithoutMonstersNestedInput
   }
 
@@ -12228,7 +11018,8 @@ export namespace Prisma {
     sizeId?: IntFieldUpdateOperationsInput | number
     typeId?: IntFieldUpdateOperationsInput | number
     subTypeId?: NullableIntFieldUpdateOperationsInput | number | null
-    sheetId?: IntFieldUpdateOperationsInput | number
+    sheetUrl?: StringFieldUpdateOperationsInput | string
+    sheetTypeId?: IntFieldUpdateOperationsInput | number
     minis?: MiniUncheckedUpdateManyWithoutMonstersNestedInput
   }
 
@@ -12238,11 +11029,13 @@ export namespace Prisma {
     sizeId?: IntFieldUpdateOperationsInput | number
     typeId?: IntFieldUpdateOperationsInput | number
     subTypeId?: NullableIntFieldUpdateOperationsInput | number | null
-    sheetId?: IntFieldUpdateOperationsInput | number
+    sheetUrl?: StringFieldUpdateOperationsInput | string
+    sheetTypeId?: IntFieldUpdateOperationsInput | number
   }
 
-  export type MonsterUpdateWithoutSheetInput = {
+  export type MonsterUpdateWithoutSheetTypeInput = {
     name?: StringFieldUpdateOperationsInput | string
+    sheetUrl?: StringFieldUpdateOperationsInput | string
     size?: MonsterSizeUpdateOneRequiredWithoutMonstersNestedInput
     type?: MonsterTypeUpdateOneRequiredWithoutMonstersNestedInput
     subType?: MonsterSubTypeUpdateOneWithoutMonstersNestedInput
@@ -12250,39 +11043,25 @@ export namespace Prisma {
     minis?: MiniUpdateManyWithoutMonstersNestedInput
   }
 
-  export type MonsterUncheckedUpdateWithoutSheetInput = {
+  export type MonsterUncheckedUpdateWithoutSheetTypeInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     sizeId?: IntFieldUpdateOperationsInput | number
     typeId?: IntFieldUpdateOperationsInput | number
     subTypeId?: NullableIntFieldUpdateOperationsInput | number | null
     imageId?: NullableIntFieldUpdateOperationsInput | number | null
+    sheetUrl?: StringFieldUpdateOperationsInput | string
     minis?: MiniUncheckedUpdateManyWithoutMonstersNestedInput
   }
 
-  export type MonsterUncheckedUpdateManyWithoutSheetInput = {
+  export type MonsterUncheckedUpdateManyWithoutSheetTypeInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     sizeId?: IntFieldUpdateOperationsInput | number
     typeId?: IntFieldUpdateOperationsInput | number
     subTypeId?: NullableIntFieldUpdateOperationsInput | number | null
     imageId?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
-  export type SheetUpdateWithoutTypeInput = {
-    url?: StringFieldUpdateOperationsInput | string
-    monsters?: MonsterUpdateManyWithoutSheetNestedInput
-  }
-
-  export type SheetUncheckedUpdateWithoutTypeInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    url?: StringFieldUpdateOperationsInput | string
-    monsters?: MonsterUncheckedUpdateManyWithoutSheetNestedInput
-  }
-
-  export type SheetUncheckedUpdateManyWithoutTypeInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    url?: StringFieldUpdateOperationsInput | string
+    sheetUrl?: StringFieldUpdateOperationsInput | string
   }
 
 
@@ -12315,10 +11094,6 @@ export namespace Prisma {
      */
     export type ImageCountOutputTypeArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = ImageCountOutputTypeDefaultArgs<ExtArgs>
     /**
-     * @deprecated Use SheetCountOutputTypeDefaultArgs instead
-     */
-    export type SheetCountOutputTypeArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = SheetCountOutputTypeDefaultArgs<ExtArgs>
-    /**
      * @deprecated Use SheetTypeCountOutputTypeDefaultArgs instead
      */
     export type SheetTypeCountOutputTypeArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = SheetTypeCountOutputTypeDefaultArgs<ExtArgs>
@@ -12346,10 +11121,6 @@ export namespace Prisma {
      * @deprecated Use ImageDefaultArgs instead
      */
     export type ImageArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = ImageDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use SheetDefaultArgs instead
-     */
-    export type SheetArgs<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = SheetDefaultArgs<ExtArgs>
     /**
      * @deprecated Use SheetTypeDefaultArgs instead
      */

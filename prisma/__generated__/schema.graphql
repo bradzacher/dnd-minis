@@ -7,8 +7,9 @@ type Mini implements Node {
   id: ID!
   monsters: [Monster!]!
   name: String!
+  quantity: Int!
   size: String!
-  subType: String!
+  subType: String
   type: String!
 }
 
@@ -17,9 +18,10 @@ type Monster implements Node {
   image: Image!
   minis: [Mini!]!
   name: String!
-  sheet: Sheet!
+  sheetType: String!
+  sheetUrl: String!
   size: String!
-  subType: String!
+  subType: String
   type: String!
 }
 
@@ -35,8 +37,7 @@ type PageInfo {
 }
 
 type Query {
-  minis(after: String, before: String, first: Int, last: Int): QueryMinisConnection!
-  monsters(after: String, before: String, first: Int, last: Int): QueryMonstersConnection!
+  minis(after: String, before: String, first: Int, last: Int, search: String): QueryMinisConnection!
   node(id: ID!): Node
   nodes(ids: [ID!]!): [Node]!
 }
@@ -49,20 +50,4 @@ type QueryMinisConnection {
 type QueryMinisConnectionEdge {
   cursor: String!
   node: Mini!
-}
-
-type QueryMonstersConnection {
-  edges: [QueryMonstersConnectionEdge!]!
-  pageInfo: PageInfo!
-}
-
-type QueryMonstersConnectionEdge {
-  cursor: String!
-  node: Mini!
-}
-
-type Sheet implements Node {
-  id: ID!
-  sheetType: String!
-  url: String!
 }

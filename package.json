@@ -8,18 +8,21 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write . && prisma format",
-    "relay": "tsx ./scripts/generate-schema.ts && relay-compiler",
+    "relay": "prisma generate && tsx ./scripts/generate-schema.ts && relay-compiler",
+    "relay-watch": "nodemon -e 'ts,tsx' -x 'yarn relay-compiler'",
     "typecheck": "tsc --noEmit"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.10",
-    "@stylexjs/stylex": "beta",
     "next": "^13.4.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-intersection-observer": "^9.5.2",
     "react-relay": "^15.0.0",
     "relay-runtime": "^15.0.0"
   },
@@ -29,9 +32,6 @@
     "@pothos/plugin-prisma-utils": "^0.11.0",
     "@pothos/plugin-relay": "^3.44.0",
     "@prisma/client": "5.3.1",
-    "@stylexjs/dev-runtime": "beta",
-    "@stylexjs/eslint-plugin": "beta",
-    "@stylexjs/nextjs-plugin": "beta",
     "@types/bcrypt": "^5.0.0",
     "@types/node": "^18.11.9",
     "@types/react": "^18.0.25",
@@ -51,6 +51,7 @@
     "eslint-plugin-unicorn": "^48.0.1",
     "graphql": "^16.8.1",
     "graphql-yoga": "^4.0.4",
+    "nodemon": "^3.0.1",
     "prettier": "^3.0.3",
     "prisma": "^5.3.1",
     "relay-compiler": "^15.0.0",

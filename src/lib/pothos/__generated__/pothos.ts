@@ -1,5 +1,5 @@
 /* eslint-disable */
-import type { Prisma, Mini, Monster, MonsterSize, MonsterType, MonsterSubType, Image, Sheet, SheetType } from "@/lib/prisma/__generated__/client";
+import type { Prisma, Mini, Monster, MonsterSize, MonsterType, MonsterSubType, Image, SheetType } from "@/lib/prisma/__generated__/client";
 export default interface PrismaTypes {
     Mini: {
         Name: "Mini";
@@ -42,7 +42,7 @@ export default interface PrismaTypes {
         Where: Prisma.MonsterWhereInput;
         Create: Prisma.MonsterCreateInput;
         Update: Prisma.MonsterUpdateInput;
-        RelationName: "size" | "type" | "subType" | "sheet" | "image" | "minis";
+        RelationName: "size" | "type" | "subType" | "image" | "sheetType" | "minis";
         ListRelations: "minis";
         Relations: {
             size: {
@@ -57,13 +57,13 @@ export default interface PrismaTypes {
                 Shape: MonsterSubType | null;
                 Name: "MonsterSubType";
             };
-            sheet: {
-                Shape: Sheet;
-                Name: "Sheet";
-            };
             image: {
                 Shape: Image | null;
                 Name: "Image";
+            };
+            sheetType: {
+                Shape: SheetType;
+                Name: "SheetType";
             };
             minis: {
                 Shape: Mini[];
@@ -159,29 +159,6 @@ export default interface PrismaTypes {
             };
         };
     };
-    Sheet: {
-        Name: "Sheet";
-        Shape: Sheet;
-        Include: Prisma.SheetInclude;
-        Select: Prisma.SheetSelect;
-        OrderBy: Prisma.SheetOrderByWithRelationInput;
-        WhereUnique: Prisma.SheetWhereUniqueInput;
-        Where: Prisma.SheetWhereInput;
-        Create: Prisma.SheetCreateInput;
-        Update: Prisma.SheetUpdateInput;
-        RelationName: "type" | "monsters";
-        ListRelations: "monsters";
-        Relations: {
-            type: {
-                Shape: SheetType;
-                Name: "SheetType";
-            };
-            monsters: {
-                Shape: Monster[];
-                Name: "Monster";
-            };
-        };
-    };
     SheetType: {
         Name: "SheetType";
         Shape: SheetType;
@@ -192,12 +169,12 @@ export default interface PrismaTypes {
         Where: Prisma.SheetTypeWhereInput;
         Create: Prisma.SheetTypeCreateInput;
         Update: Prisma.SheetTypeUpdateInput;
-        RelationName: "Sheet";
-        ListRelations: "Sheet";
+        RelationName: "Monster";
+        ListRelations: "Monster";
         Relations: {
-            Sheet: {
-                Shape: Sheet[];
-                Name: "Sheet";
+            Monster: {
+                Shape: Monster[];
+                Name: "Monster";
             };
         };
     };

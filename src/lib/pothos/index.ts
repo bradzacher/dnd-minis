@@ -3,6 +3,7 @@ import PrismaPlugin from '@pothos/plugin-prisma';
 import PrismaUtils from '@pothos/plugin-prisma-utils';
 import RelayPlugin from '@pothos/plugin-relay';
 
+import type { Prisma } from '@/lib/prisma';
 import { prisma } from '@/lib/prisma';
 
 import type PrismaTypes from './__generated__/pothos';
@@ -30,8 +31,9 @@ const builder = new SchemaBuilder<{
 
 builder.prismaNode('Mini', {
   id: { field: 'id' },
-  fields: (t) => ({
+  fields: t => ({
     name: t.exposeString('name'),
+    quantity: t.exposeInt('quantity'),
     size: t.string({
       select: {
         size: {
@@ -40,7 +42,7 @@ builder.prismaNode('Mini', {
           },
         },
       },
-      resolve: (mini) => mini.size.name,
+      resolve: mini => mini.size.name,
     }),
     type: t.string({
       select: {
@@ -50,9 +52,10 @@ builder.prismaNode('Mini', {
           },
         },
       },
-      resolve: (mini) => mini.type.name,
+      resolve: mini => mini.type.name,
     }),
     subType: t.string({
+      nullable: true,
       select: {
         subType: {
           select: {
@@ -60,7 +63,9 @@ builder.prismaNode('Mini', {
           },
         },
       },
-      resolve: (mini) => mini.subType.name,
+      resolve: mini =>
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        mini.subType == null ? null : mini.subType.name,
     }),
     monsters: t.relation('monsters'),
   }),
@@ -68,7 +73,7 @@ builder.prismaNode('Mini', {
 
 builder.prismaNode('Monster', {
   id: { field: 'id' },
-  fields: (t) => ({
+  fields: t => ({
     name: t.exposeString('name'),
     size: t.string({
       select: {
@@ -78,7 +83,7 @@ builder.prismaNode('Monster', {
           },
         },
       },
-      resolve: (monster) => monster.size.name,
+      resolve: monster => monster.size.name,
     }),
     type: t.string({
       select: {
@@ -88,9 +93,10 @@ builder.prismaNode('Monster', {
           },
         },
       },
-      resolve: (monster) => monster.type.name,
+      resolve: monster => monster.type.name,
     }),
     subType: t.string({
+      nullable: true,
       select: {
         subType: {
           select: {
@@ -98,25 +104,12 @@ builder.prismaNode('Monster', {
           },
         },
       },
-      resolve: (monster) => monster.subType.name,
+      resolve: monster =>
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        monster.subType == null ? null : monster.subType.name,
     }),
-    sheet: t.relation('sheet'),
     image: t.relation('image'),
-    minis: t.relation('minis'),
-  }),
-});
-
-builder.prismaNode('Image', {
-  id: { field: 'id' },
-  fields: (t) => ({
-    url: t.exposeString('url'),
-  }),
-});
-
-builder.prismaNode('Sheet', {
-  id: { field: 'id' },
-  fields: (t) => ({
-    url: t.exposeString('url'),
+    sheetUrl: t.exposeString('sheetUrl'),
     sheetType: t.string({
       select: {
         type: {
@@ -125,28 +118,130 @@ builder.prismaNode('Sheet', {
           },
         },
       },
-      resolve: (sheet) => sheet.type.name,
+      resolve: monster => monster.type.name,
     }),
+    minis: t.relation('minis'),
   }),
 });
 
+builder.prismaNode('Image', {
+  id: { field: 'id' },
+  fields: t => ({
+    url: t.exposeString('url'),
+  }),
+});
+
+const MINI_SEARCH_REGEX = /(name|type|sub[Tt]ype):(.*)/;
 builder.queryType({
-  fields: (t) => ({
+  fields: t => ({
     minis: t.prismaConnection({
       type: 'Mini',
       cursor: 'id',
       nullable: false,
       nodeNullable: false,
       edgesNullable: false,
-      resolve: (query) => prisma.mini.findMany({ ...query }),
-    }),
-    monsters: t.prismaConnection({
-      type: 'Mini',
-      cursor: 'id',
-      nullable: false,
-      nodeNullable: false,
-      edgesNullable: false,
-      resolve: (query) => prisma.mini.findMany({ ...query }),
+      defaultSize: 25,
+      args: {
+        search: t.arg.string(),
+      },
+      resolve: (query, _, args) => {
+        function findAll() {
+          return prisma.mini.findMany({ ...query });
+        }
+
+        if (args.search == null || args.search === '') {
+          return findAll();
+        }
+
+        const searchText = args.search;
+        const where = ((): Prisma.MiniWhereInput | null => {
+          const match = MINI_SEARCH_REGEX.exec(searchText);
+          if (!match) {
+            return {
+              OR: [
+                {
+                  name: {
+                    contains: searchText,
+                  },
+                },
+                {
+                  type: {
+                    is: {
+                      name: {
+                        contains: searchText,
+                      },
+                    },
+                  },
+                },
+                {
+                  subType: {
+                    is: {
+                      name: {
+                        contains: searchText,
+                      },
+                    },
+                  },
+                },
+              ],
+            };
+          }
+
+          const [, field, fieldSearchTextRaw] = match as unknown as [
+            string,
+            'name' | 'type' | 'subType' | 'subtype',
+            string,
+          ];
+          const fieldSearchText = fieldSearchTextRaw.trim();
+
+          if (fieldSearchText === '') {
+            return null;
+          }
+
+          switch (field) {
+            case 'name': {
+              return {
+                name: {
+                  contains: fieldSearchText,
+                },
+              };
+            }
+
+            case 'subType':
+            case 'subtype': {
+              return {
+                subType: {
+                  is: {
+                    name: {
+                      contains: fieldSearchText,
+                    },
+                  },
+                },
+              };
+            }
+
+            case 'type': {
+              return {
+                type: {
+                  is: {
+                    name: {
+                      contains: fieldSearchText,
+                    },
+                  },
+                },
+              };
+            }
+          }
+        })();
+
+        if (where == null) {
+          return findAll();
+        }
+
+        return prisma.mini.findMany({
+          ...query,
+          where,
+        });
+      },
     }),
   }),
 });

@@ -3,7 +3,6 @@
 module.exports = {
   root: true,
   plugins: [
-    '@stylexjs',
     '@typescript-eslint',
     'eslint-comments',
     'import',
@@ -32,12 +31,13 @@ module.exports = {
   },
   rules: {
     '@typescript-eslint/consistent-type-imports': 'error',
+    '@typescript-eslint/strict-boolean-expressions': 'error',
     curly: 'error',
     eqeqeq: ['error', 'always', { null: 'never' }],
-    'simple-import-sort/imports': 'error',
-    'simple-import-sort/exports': 'error',
     'import/no-default-export': 'error',
     'import/consistent-type-specifier-style': 'error',
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
 
     // reconfigurations
     '@typescript-eslint/ban-types': [
@@ -49,21 +49,28 @@ module.exports = {
         },
       },
     ],
-    'unicorn/prevent-abbreviations': [
+    'eslint-comments/disable-enable-pair': [
       'error',
       {
-        replacements: {
-          props: false,
-          prop: false,
-        },
+        allowWholeFile: true,
+      },
+    ],
+    'unicorn/filename-case': [
+      'error',
+      {
+        case: 'kebabCase',
+        ignore: [/\.tsx$/, /^use[A-Z].+\.tsx?$/],
       },
     ],
 
     // ew god no
-    'unicorn/no-null': 'off',
     'no-inner-declarations': 'off',
     'import/no-named-as-default': 'off',
     'import/no-unresolved': 'off',
+    'relay/generated-flow-types': 'off',
+    'unicorn/no-negated-condition': 'off',
+    'unicorn/no-null': 'off',
+    'unicorn/prevent-abbreviations': 'off',
   },
   ignorePatterns: ['**/__generated__/**'],
   overrides: [
@@ -84,7 +91,6 @@ module.exports = {
         'plugin:react-hooks/recommended',
       ],
       rules: {
-        '@stylexjs/valid-styles': 'error',
         'import/default': 'error',
         'import/no-default-export': 'off',
       },
@@ -93,6 +99,7 @@ module.exports = {
       files: ['src/pages/api/**/*'],
       extends: ['plugin:node/recommended'],
       rules: {
+        // reconfigurations
         'node/no-unsupported-features/es-syntax': [
           'error',
           {
@@ -100,7 +107,10 @@ module.exports = {
             ignores: ['modules'],
           },
         ],
+
+        // ew god no
         'node/no-missing-import': 'off',
+        'node/no-unpublished-import': 'off',
       },
     },
   ],

@@ -5,6 +5,7 @@ CREATE TABLE "Mini" (
     "sizeId" INTEGER NOT NULL,
     "typeId" INTEGER NOT NULL,
     "subTypeId" INTEGER,
+    "quantity" INTEGER,
     CONSTRAINT "Mini_sizeId_fkey" FOREIGN KEY ("sizeId") REFERENCES "MonsterSize" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "Mini_typeId_fkey" FOREIGN KEY ("typeId") REFERENCES "MonsterType" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "Mini_subTypeId_fkey" FOREIGN KEY ("subTypeId") REFERENCES "MonsterSubType" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
@@ -19,11 +20,14 @@ CREATE TABLE "Monster" (
     "subTypeId" INTEGER,
     "sheetId" INTEGER NOT NULL,
     "imageId" INTEGER,
+    "sheetUrl" TEXT NOT NULL,
+    "sheetTypeId" INTEGER NOT NULL,
     CONSTRAINT "Monster_sizeId_fkey" FOREIGN KEY ("sizeId") REFERENCES "MonsterSize" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "Monster_typeId_fkey" FOREIGN KEY ("typeId") REFERENCES "MonsterType" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT "Monster_subTypeId_fkey" FOREIGN KEY ("subTypeId") REFERENCES "MonsterSubType" ("id") ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT "Monster_sheetId_fkey" FOREIGN KEY ("sheetId") REFERENCES "Sheet" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "Monster_imageId_fkey" FOREIGN KEY ("imageId") REFERENCES "Image" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+    CONSTRAINT "Monster_imageId_fkey" FOREIGN KEY ("imageId") REFERENCES "Image" ("id") ON DELETE SET NULL ON UPDATE CASCADE,
+    CONSTRAINT "Monster_sheetTypeId_fkey" FOREIGN KEY ("sheetTypeId") REFERENCES "SheetType" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -48,14 +52,6 @@ CREATE TABLE "MonsterSubType" (
 CREATE TABLE "Image" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "url" TEXT NOT NULL
-);
-
--- CreateTable
-CREATE TABLE "Sheet" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "url" TEXT NOT NULL,
-    "typeId" INTEGER NOT NULL,
-    CONSTRAINT "Sheet_typeId_fkey" FOREIGN KEY ("typeId") REFERENCES "SheetType" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable

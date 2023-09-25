@@ -109,7 +109,8 @@ exports.Prisma.MiniScalarFieldEnum = {
   name: 'name',
   sizeId: 'sizeId',
   typeId: 'typeId',
-  subTypeId: 'subTypeId'
+  subTypeId: 'subTypeId',
+  quantity: 'quantity'
 };
 
 exports.Prisma.MonsterScalarFieldEnum = {
@@ -118,8 +119,9 @@ exports.Prisma.MonsterScalarFieldEnum = {
   sizeId: 'sizeId',
   typeId: 'typeId',
   subTypeId: 'subTypeId',
-  sheetId: 'sheetId',
-  imageId: 'imageId'
+  imageId: 'imageId',
+  sheetUrl: 'sheetUrl',
+  sheetTypeId: 'sheetTypeId'
 };
 
 exports.Prisma.MonsterSizeScalarFieldEnum = {
@@ -140,12 +142,6 @@ exports.Prisma.MonsterSubTypeScalarFieldEnum = {
 exports.Prisma.ImageScalarFieldEnum = {
   id: 'id',
   url: 'url'
-};
-
-exports.Prisma.SheetScalarFieldEnum = {
-  id: 'id',
-  url: 'url',
-  typeId: 'typeId'
 };
 
 exports.Prisma.SheetTypeScalarFieldEnum = {
@@ -171,7 +167,6 @@ exports.Prisma.ModelName = {
   MonsterType: 'MonsterType',
   MonsterSubType: 'MonsterSubType',
   Image: 'Image',
-  Sheet: 'Sheet',
   SheetType: 'SheetType'
 };
 

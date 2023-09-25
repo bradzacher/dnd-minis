@@ -14,6 +14,8 @@
       "@/relay/*": ["./src/lib/relay/__generated__/*"]
     },
     "strict": true,
+    "exactOptionalPropertyTypes": true,
+    "noUncheckedIndexedAccess": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
