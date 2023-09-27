@@ -26,6 +26,8 @@ export function handleRelayError(
           operation.name
         }' with variables '${JSON.stringify(variables)}': ${JSON.stringify(
           response.errors,
+          null,
+          2,
         )}`,
       );
     }

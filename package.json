@@ -3,7 +3,7 @@
   "packageManager": "yarn@3.6.3",
   "private": true,
   "scripts": {
-    "dev": "yarn run relay && prisma generate && next dev",
+    "dev": "next dev",
     "build": "yarn run relay && prisma generate && prisma db push && next build",
     "start": "next start",
     "lint": "next lint",

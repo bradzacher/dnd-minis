@@ -55,6 +55,21 @@ module.exports = {
         allowWholeFile: true,
       },
     ],
+    'react/no-unescaped-entities': [
+      'error',
+      {
+        forbid: [
+          {
+            char: '>',
+            alternatives: ['&gt;'],
+          },
+          {
+            char: '}',
+            alternatives: ['&#125;'],
+          },
+        ],
+      },
+    ],
     'unicorn/filename-case': [
       'error',
       {
@@ -71,6 +86,7 @@ module.exports = {
     'unicorn/no-negated-condition': 'off',
     'unicorn/no-null': 'off',
     'unicorn/prevent-abbreviations': 'off',
+    'unicorn/prefer-ternary': 'off',
   },
   ignorePatterns: ['**/__generated__/**'],
   overrides: [
@@ -111,6 +127,17 @@ module.exports = {
         // ew god no
         'node/no-missing-import': 'off',
         'node/no-unpublished-import': 'off',
+      },
+    },
+    {
+      files: ['src/lib/pothos/entities/**/*'],
+      rules: {
+        'unicorn/filename-case': [
+          'error',
+          {
+            case: 'pascalCase',
+          },
+        ],
       },
     },
   ],

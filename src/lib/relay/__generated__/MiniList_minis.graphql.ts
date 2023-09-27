@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a4838586edfd1c4144a964c6bc21fbcb>>
+ * @generated SignedSource<<b82d9dd8fb26cb05672e5d5b77b4e38b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -46,6 +46,10 @@ return {
     {
       "kind": "RootArgument",
       "name": "search"
+    },
+    {
+      "kind": "RootArgument",
+      "name": "sort"
     }
   ],
   "kind": "Fragment",
@@ -80,6 +84,11 @@ return {
           "kind": "Variable",
           "name": "search",
           "variableName": "search"
+        },
+        {
+          "kind": "Variable",
+          "name": "sort",
+          "variableName": "sort"
         }
       ],
       "concreteType": "QueryMinisConnection",
@@ -192,6 +201,6 @@ return {
 };
 })();
 
-(node as any).hash = "25cf5f39284efb1d482cea9f62de8600";
+(node as any).hash = "3b4916f11831763e09577da7658e9dfb";
 
 export default node;

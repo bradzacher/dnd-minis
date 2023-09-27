@@ -6,12 +6,8 @@ import RelayPlugin from '@pothos/plugin-relay';
 import { prisma } from '@/lib/prisma';
 
 import type PrismaTypes from './__generated__/pothos';
-import { Image } from './entities/Image';
-import { Mini } from './entities/Mini';
-import { Monster } from './entities/Monster';
-import { Query } from './entities/Query';
 
-const builder = new SchemaBuilder<{
+export const builder = new SchemaBuilder<{
   PrismaTypes: PrismaTypes;
 }>({
   plugins: [PrismaPlugin, PrismaUtils, RelayPlugin],
@@ -31,12 +27,3 @@ const builder = new SchemaBuilder<{
     cursorType: 'String',
   },
 });
-
-export type BuilderType = typeof builder;
-
-Mini(builder);
-Monster(builder);
-Image(builder);
-Query(builder);
-
-export const schema = builder.toSchema();

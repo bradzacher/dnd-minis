@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d7d8b25a69d297798418b8d896a9e762>>
+ * @generated SignedSource<<3daab8ce0f3cdef074668eb89be33687>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,10 +10,17 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
+export type MiniSortColumn = "name" | "size" | "subType" | "type" | "%future added value";
+export type SortDirection = "asc" | "desc" | "%future added value";
+export type MiniSort = {
+  column?: MiniSortColumn | null;
+  direction?: SortDirection | null;
+};
 export type pages_HomeQuery$variables = {
   count?: number | null;
   cursor?: string | null;
   search?: string | null;
+  sort?: MiniSort | null;
 };
 export type pages_HomeQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"MiniList_minis">;
@@ -39,6 +46,11 @@ var v0 = [
     "defaultValue": null,
     "kind": "LocalArgument",
     "name": "search"
+  },
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "sort"
   }
 ],
 v1 = [
@@ -56,6 +68,11 @@ v1 = [
     "kind": "Variable",
     "name": "search",
     "variableName": "search"
+  },
+  {
+    "kind": "Variable",
+    "name": "sort",
+    "variableName": "sort"
   }
 ];
 return {
@@ -191,7 +208,8 @@ return {
         "alias": null,
         "args": (v1/*: any*/),
         "filters": [
-          "search"
+          "search",
+          "sort"
         ],
         "handle": "connection",
         "key": "MiniList_query_minis",
@@ -201,16 +219,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "4232879dfe4a0ada552418e16e6c0afb",
+    "cacheID": "3a625003a33aa6b7c40c2aedb00b6ed3",
     "id": null,
     "metadata": {},
     "name": "pages_HomeQuery",
     "operationKind": "query",
-    "text": "query pages_HomeQuery(\n  $count: Int\n  $cursor: String\n  $search: String\n) {\n  ...MiniList_minis\n}\n\nfragment MiniList_minis on Query {\n  minis(first: $count, after: $cursor, search: $search) {\n    edges {\n      node {\n        id\n        name\n        size\n        subType\n        type\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query pages_HomeQuery(\n  $count: Int\n  $cursor: String\n  $search: String\n  $sort: MiniSort\n) {\n  ...MiniList_minis\n}\n\nfragment MiniList_minis on Query {\n  minis(first: $count, after: $cursor, search: $search, sort: $sort) {\n    edges {\n      node {\n        id\n        name\n        size\n        subType\n        type\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "6e4c3b6810fa12c7febfcc589e5d8d39";
+(node as any).hash = "37d0ad07ac493238008b24f6258a9da8";
 
 export default node;
